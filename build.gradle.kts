@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     `maven-publish`
+    kotlin("jvm")
 }
 
 repositories {
@@ -17,12 +18,13 @@ dependencies {
     annotationProcessor(libs.org.projectlombok.lombok)
     testCompileOnly(libs.org.projectlombok.lombok)
     testAnnotationProcessor(libs.org.projectlombok.lombok)
+
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 group = "com.rogeriofrsouza.app"
 version = "1.0-SNAPSHOT"
 description = "chess-system"
-java.sourceCompatibility = JavaVersion.VERSION_17
 
 publishing {
     publications.create<MavenPublication>("maven") {
@@ -36,4 +38,8 @@ tasks.withType<JavaCompile> {
 
 tasks.withType<Javadoc> {
     options.encoding = "UTF-8"
+}
+
+kotlin {
+    jvmToolchain(17)
 }
