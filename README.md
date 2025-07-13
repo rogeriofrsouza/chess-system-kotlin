@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/github/license/rogeriofrsouza/chess-system-kotlin)](https://github.com/rogeriofrsouza/chess-system-kotlin/blob/main/LICENSE)
 [![Language](https://img.shields.io/badge/language-Kotlin-purple.svg)](https://kotlinlang.org)
-[![Build](https://github.com/rogeriofrsouza/chess-system-kotlin/actions/workflows/maven.yml/badge.svg)](https://github.com/rogeriofrsouza/chess-system-kotlin/blob/main/.github/workflows/maven.yml)
+[![Build](https://github.com/rogeriofrsouza/chess-system-kotlin/actions/workflows/gradle.yml/badge.svg)](https://github.com/rogeriofrsouza/chess-system-kotlin/blob/main/.github/workflows/gradle.yml)
 
 - [About](#about)
 - [Class diagram](#class-diagram)
