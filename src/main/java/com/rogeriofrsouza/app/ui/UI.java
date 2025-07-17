@@ -1,4 +1,4 @@
-package com.rogeriofrsouza.app;
+package com.rogeriofrsouza.app.ui;
 
 import com.rogeriofrsouza.app.chess.ChessMatch;
 import com.rogeriofrsouza.app.chess.ChessPiece;
