@@ -14,7 +14,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.rogeriofrsouza.app.ui.UI;
+import com.rogeriofrsouza.app.ui.Display;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,11 +33,11 @@ import com.rogeriofrsouza.app.chess.ChessPosition;
 import com.rogeriofrsouza.app.chess.pieces.Rook;
 
 @ExtendWith(MockitoExtension.class)
-class UITest {
+class DisplayTest {
 
     @InjectMocks
     @Spy
-    private UI ui;
+    private Display display;
 
     private final PrintStream systemOut = System.out;
     private ByteArrayOutputStream outputStream;
@@ -65,8 +65,8 @@ class UITest {
     @Test
     @DisplayName("should clear the console")
     void clearScreen() {
-        ui.clearScreen();
-        String expected = UI.ANSI_MOVE_CURSOR_HOME + UI.ANSI_CLEAR_SCREEN;
+        display.clearScreen();
+        String expected = Display.ANSI_MOVE_CURSOR_HOME + Display.ANSI_CLEAR_SCREEN;
         assertEquals(expected, outputStream.toString());
     }
 
@@ -82,20 +82,20 @@ class UITest {
 
         String outputExpected = String.format(
             "%nCaptured pieces%nWhite: %s%s%n%sBlack: %s%s%n%s",
-            UI.ANSI_WHITE,
+            Display.ANSI_WHITE,
             captured.subList(0, 2),
-            UI.ANSI_RESET,
-            UI.ANSI_YELLOW,
+            Display.ANSI_RESET,
+            Display.ANSI_YELLOW,
             captured.subList(2, 4),
-            UI.ANSI_RESET) +
+            Display.ANSI_RESET) +
             "\nTurn: " + chessMatch.getTurn() + "\n" +
             "Waiting player: " + chessMatch.getCurrentPlayer() + "\n";
 
-        doNothing().when(ui).printBoard(any(ChessPiece[][].class), any());
-        ui.printMatch(chessMatch, captured);
+        doNothing().when(display).printBoard(any(ChessPiece[][].class), any());
+        display.printMatch(chessMatch, captured);
 
         assertEquals(outputExpected, outputStream.toString());
-        verify(ui).printBoard(any(ChessPiece[][].class), any());
+        verify(display).printBoard(any(ChessPiece[][].class), any());
     }
 
     @Test
@@ -112,21 +112,21 @@ class UITest {
 
         String outputExpected = String.format(
             "%nCaptured pieces%nWhite: %s%s%n%sBlack: %s%s%n%s",
-            UI.ANSI_WHITE,
+            Display.ANSI_WHITE,
             captured,
-            UI.ANSI_RESET,
-            UI.ANSI_YELLOW,
+            Display.ANSI_RESET,
+            Display.ANSI_YELLOW,
             List.of(),
-            UI.ANSI_RESET) +
+            Display.ANSI_RESET) +
             "\nTurn: " + chessMatch.getTurn() + "\n" +
             "Waiting player: " + chessMatch.getCurrentPlayer() + "\n" +
             "CHECK!\n";
 
-        doNothing().when(ui).printBoard(any(ChessPiece[][].class), any());
-        ui.printMatch(chessMatch, captured);
+        doNothing().when(display).printBoard(any(ChessPiece[][].class), any());
+        display.printMatch(chessMatch, captured);
 
         assertEquals(outputExpected, outputStream.toString());
-        verify(ui).printBoard(any(ChessPiece[][].class), any());
+        verify(display).printBoard(any(ChessPiece[][].class), any());
     }
 
     @Test
@@ -143,20 +143,20 @@ class UITest {
 
         String stringBuilder = String.format(
             "%nCaptured pieces%nWhite: %s%s%n%sBlack: %s%s%n%s",
-            UI.ANSI_WHITE,
+            Display.ANSI_WHITE,
             List.of(),
-            UI.ANSI_RESET,
-            UI.ANSI_YELLOW,
+            Display.ANSI_RESET,
+            Display.ANSI_YELLOW,
             captured,
-            UI.ANSI_RESET) +
+            Display.ANSI_RESET) +
             "\nTurn: " + chessMatch.getTurn() + "\n" +
             "CHECKMATE!\nWinner: " + chessMatch.getCurrentPlayer() + "\n";
 
-        doNothing().when(ui).printBoard(any(ChessPiece[][].class), any());
-        ui.printMatch(chessMatch, captured);
+        doNothing().when(display).printBoard(any(ChessPiece[][].class), any());
+        display.printMatch(chessMatch, captured);
 
         assertEquals(stringBuilder, outputStream.toString());
-        verify(ui).printBoard(any(ChessPiece[][].class), any());
+        verify(display).printBoard(any(ChessPiece[][].class), any());
     }
 
     @Test
@@ -172,10 +172,10 @@ class UITest {
 
         String stringExpected = String.format(
             "8 %sR%s %n7 -%s %n6 -%s %n5 %sR%s %n  a b c d e f g h%n",
-            UI.ANSI_YELLOW, UI.ANSI_RESET, UI.ANSI_RESET,
-            UI.ANSI_RESET, UI.ANSI_WHITE, UI.ANSI_RESET);
+            Display.ANSI_YELLOW, Display.ANSI_RESET, Display.ANSI_RESET,
+            Display.ANSI_RESET, Display.ANSI_WHITE, Display.ANSI_RESET);
 
-        ui.printBoard(pieces, null);
+        display.printBoard(pieces, null);
         assertEquals(stringExpected, outputStream.toString());
     }
 
@@ -194,11 +194,11 @@ class UITest {
 
         String stringExpected = String.format(
             "8 %s%sR%s %n7 %s-%s %n6 -%s %n5 %sR%s %n  a b c d e f g h%n",
-            UI.ANSI_BLUE_BACKGROUND, UI.ANSI_YELLOW, UI.ANSI_RESET,
-            UI.ANSI_BLUE_BACKGROUND, UI.ANSI_RESET, UI.ANSI_RESET,
-            UI.ANSI_WHITE, UI.ANSI_RESET);
+            Display.ANSI_BLUE_BACKGROUND, Display.ANSI_YELLOW, Display.ANSI_RESET,
+            Display.ANSI_BLUE_BACKGROUND, Display.ANSI_RESET, Display.ANSI_RESET,
+            Display.ANSI_WHITE, Display.ANSI_RESET);
 
-        ui.printBoard(pieces, possibleMoves);
+        display.printBoard(pieces, possibleMoves);
         assertEquals(stringExpected, outputStream.toString());
     }
 
@@ -209,7 +209,7 @@ class UITest {
         provideInput("a8");
 
         ChessPosition chessPositionExpected = new ChessPosition('a', 8);
-        ChessPosition chessPositionReal = ui.readChessPosition(new Scanner(System.in));
+        ChessPosition chessPositionReal = display.readChessPosition(new Scanner(System.in));
 
         assertEquals(chessPositionExpected.getRow(), chessPositionReal.getRow());
         assertEquals(chessPositionExpected.getColumn(), chessPositionReal.getColumn());
@@ -223,6 +223,6 @@ class UITest {
 
         assertThrowsExactly(
             InputMismatchException.class,
-            () -> ui.readChessPosition(new Scanner(System.in)));
+            () -> display.readChessPosition(new Scanner(System.in)));
     }
 }
