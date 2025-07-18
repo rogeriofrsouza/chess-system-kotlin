@@ -8,6 +8,6 @@ object AnsiEscapeCode {
 
     const val BLUE_BACKGROUND = "\u001B[44m"
 
-    const val MOVE_CURSOR_HOME = "\\033[H"
-    const val CLEAR_SCREEN = "\\033[2J"
+    const val MOVE_CURSOR_HOME = "\u001B[H"
+    const val CLEAR_SCREEN = "\u001B[2J"
 }
