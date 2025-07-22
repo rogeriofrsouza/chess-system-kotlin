@@ -1,17 +1,13 @@
 package com.rogeriofrsouza.app;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Scanner;
-
 import com.rogeriofrsouza.app.chess.ChessException;
 import com.rogeriofrsouza.app.chess.ChessMatch;
 import com.rogeriofrsouza.app.chess.ChessPiece;
 import com.rogeriofrsouza.app.chess.ChessPosition;
 import com.rogeriofrsouza.app.ui.Display;
+import com.rogeriofrsouza.app.ui.Prompt;
+
+import java.util.*;
 
 public class Program {
 
@@ -20,6 +16,8 @@ public class Program {
         Scanner scanner = new Scanner(System.in);
 
         Display display = new Display();
+        Prompt prompt = new Prompt();
+
         ChessMatch chessMatch = new ChessMatch();
         List<ChessPiece> captured = new ArrayList<>();
 
@@ -29,25 +27,25 @@ public class Program {
                 display.printMatch(chessMatch, captured);
 
                 System.out.print("\nSource: ");
-                ChessPosition source = display.readChessPosition(scanner);
+                ChessPosition source = prompt.readChessPosition();
                 boolean[][] possibleMoves = chessMatch.computePossibleMoves(source);
 
                 display.clearScreen();
                 display.printBoard(chessMatch.getPieces(), possibleMoves);
 
                 System.out.print("\nTarget: ");
-                ChessPosition target = display.readChessPosition(scanner);
+                ChessPosition target = prompt.readChessPosition();
 
                 Optional.ofNullable(chessMatch.performChessMove(source, target))
                         .ifPresent(captured::add);
 
                 if (chessMatch.getPromoted() != null) {
                     System.out.print("Enter piece for promotion (B/N/R/Q): ");
-                    ChessPiece.Name pieceName = display.readPromotedPiece(scanner);
+                    ChessPiece.Name pieceName = prompt.readPromotedPiece();
 
                     while (pieceName == null) {
                         System.err.print("Invalid value! Enter piece for promotion (B/N/R/Q): ");
-                        pieceName = display.readPromotedPiece(scanner);
+                        pieceName = prompt.readPromotedPiece();
                     }
 
                     chessMatch.replacePromotedPiece(pieceName);
