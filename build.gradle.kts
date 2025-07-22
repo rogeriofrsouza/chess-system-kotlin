@@ -21,8 +21,6 @@ dependencies {
     annotationProcessor(libs.org.projectlombok.lombok)
     testCompileOnly(libs.org.projectlombok.lombok)
     testAnnotationProcessor(libs.org.projectlombok.lombok)
-
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 group = "com.rogeriofrsouza.app"
