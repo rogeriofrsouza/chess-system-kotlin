@@ -107,7 +107,6 @@ public abstract class ChessPiece extends Piece {
     }
 
     @AllArgsConstructor
-    @Getter
     public enum Name {
 
         ROOK("R"),
@@ -118,6 +117,10 @@ public abstract class ChessPiece extends Piece {
         PAWN("P");
 
         private final String letter;
+
+        public String getLetter() {
+            return letter;
+        }
     }
 
     public enum Color {
