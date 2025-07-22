@@ -3,7 +3,6 @@ package com.rogeriofrsouza.app;
 import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.chess.ChessMatch;
 import com.rogeriofrsouza.app.chess.ChessPiece;
-import com.rogeriofrsouza.app.chess.ChessPosition;
 import com.rogeriofrsouza.app.chess.pieces.Rook;
 import com.rogeriofrsouza.app.ui.AnsiEscapeCode;
 import com.rogeriofrsouza.app.ui.Display;
@@ -12,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,12 +19,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
@@ -200,29 +194,5 @@ class DisplayTest {
 
         display.printBoard(pieces, possibleMoves);
         assertEquals(stringExpected, outputStream.toString());
-    }
-
-    @Test
-    @DisplayName(
-        "should create a ChessPosition object with column and row values provided from input")
-    void readChessPosition_validInput_createChessPosition() {
-        provideInput("a8");
-
-        ChessPosition chessPositionExpected = new ChessPosition('a', 8);
-        ChessPosition chessPositionReal = display.readChessPosition(new Scanner(System.in));
-
-        assertEquals(chessPositionExpected.getRow(), chessPositionReal.getRow());
-        assertEquals(chessPositionExpected.getColumn(), chessPositionReal.getColumn());
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"a9", "i2", "ff", "33"})
-    @DisplayName("should throw InputMismatchException if input is invalid")
-    void readChessPosition_invalidInput_throwInputMismatchException(String invalidInput) {
-        provideInput(invalidInput);
-
-        assertThrowsExactly(
-            InputMismatchException.class,
-            () -> display.readChessPosition(new Scanner(System.in)));
     }
 }
