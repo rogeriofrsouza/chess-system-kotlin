@@ -40,14 +40,7 @@ public class Program {
                         .ifPresent(captured::add);
 
                 if (chessMatch.getPromoted() != null) {
-                    System.out.print("Enter piece for promotion (B/N/R/Q): ");
                     ChessPiece.Name pieceName = prompt.readPromotedPiece();
-
-                    while (pieceName == null) {
-                        System.err.print("Invalid value! Enter piece for promotion (B/N/R/Q): ");
-                        pieceName = prompt.readPromotedPiece();
-                    }
-
                     chessMatch.replacePromotedPiece(pieceName);
                 }
             } catch (ChessException | InputMismatchException exception) {

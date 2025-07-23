@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.ByteArrayInputStream
-import java.util.*
 
 class PromptTest {
 
@@ -32,18 +31,10 @@ class PromptTest {
     @Test
     fun `should return a promoted piece when input is valid`() {
         ChessMatch.possiblePromotedPieces
-            .forEach { pieceName ->
-                val input = "${pieceName.letter}\n"
+            .forEach { piece ->
+                val input = "${piece.letter}\n"
                 System.setIn(ByteArrayInputStream(input.toByteArray()))
-                assertEquals(pieceName, prompt.readPromotedPiece())
+                assertEquals(piece, prompt.readPromotedPiece())
             }
-    }
-
-    @Test
-    fun `should throw when promoted piece input is invalid`() {
-        val input = "Z\n"
-        System.setIn(ByteArrayInputStream(input.toByteArray()))
-
-        assertThrows<InputMismatchException> { prompt.readPromotedPiece() }
     }
 }

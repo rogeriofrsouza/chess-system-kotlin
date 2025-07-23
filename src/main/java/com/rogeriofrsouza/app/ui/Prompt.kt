@@ -7,6 +7,8 @@ import java.util.*
 
 class Prompt {
 
+    private val promotionRegex = Regex("[BNRQ]")
+
     fun readChessPosition(): ChessPosition {
         val input = readln()
         require(input.length == 2) { "Invalid input. Expected 2 characters" }
@@ -18,14 +20,15 @@ class Prompt {
     }
 
     fun readPromotedPiece(): ChessPiece.Name {
-        val input = readln()
+        while (true) {
+            print("Enter piece for promotion (B/N/R/Q): ")
+            val input = readln().trim().uppercase(Locale.US)
 
-        if ("[RNBQ]".toRegex(RegexOption.IGNORE_CASE).matches(input).not()) {
-            throw InputMismatchException("Invalid piece letter")
+            if (promotionRegex.matches(input)) {
+                return ChessMatch.possiblePromotedPieces.first { it.letter == input }
+            }
+
+            println("Invalid piece letter")
         }
-
-        return ChessMatch.possiblePromotedPieces
-            .find { it.letter.equals(input, ignoreCase = true) }
-            ?: throw NoSuchElementException("Unknown promoted piece: $input")
     }
 }
