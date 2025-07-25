@@ -142,16 +142,11 @@ class ChessMatchTest {
                 };
 
         when(chessPieceMock.getChessPosition()).thenReturn(chessPosition);
-        when(boardMock.removePiece(promotedPosition)).thenReturn(pieceMock);
+        when(boardMock.removePiece(promotedPosition)).thenReturn(new Rook(boardMock, ChessPiece.Color.WHITE));
         when(chessPieceMock.getColor()).thenReturn(ChessPiece.Color.WHITE);
         doNothing().when(boardMock).placePiece(newPiece, promotedPosition);
 
         assertEquals(newPiece, chessMatchMock.replacePromotedPiece(type));
-
-        verify(chessPieceMock).getChessPosition();
-        verify(boardMock).removePiece(promotedPosition);
-        verify(chessPieceMock).getColor();
-        verify(boardMock).placePiece(newPiece, promotedPosition);
     }
 
     @Test

@@ -1,21 +1,15 @@
 package com.rogeriofrsouza.app.chess;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.boardgame.Piece;
 import com.rogeriofrsouza.app.boardgame.Position;
-import com.rogeriofrsouza.app.chess.pieces.Bishop;
-import com.rogeriofrsouza.app.chess.pieces.King;
-import com.rogeriofrsouza.app.chess.pieces.Knight;
-import com.rogeriofrsouza.app.chess.pieces.Pawn;
-import com.rogeriofrsouza.app.chess.pieces.Queen;
-import com.rogeriofrsouza.app.chess.pieces.Rook;
-
+import com.rogeriofrsouza.app.chess.pieces.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,8 +24,8 @@ public class ChessMatch {
 
     private Board board;
 
-    private List<Piece> piecesOnTheBoard = new ArrayList<>();
-    private List<Piece> capturedPieces = new ArrayList<>();
+    private List<ChessPiece> piecesOnTheBoard = new ArrayList<>();
+    public final List<ChessPiece> capturedPieces = new ArrayList<>();
 
     public static final List<ChessPiece.Name> possiblePromotedPieces =
             List.of(
@@ -106,7 +100,7 @@ public class ChessMatch {
         validateSourcePosition(source);
         validateTargetPosition(source, target);
 
-        Piece capturedPiece = makeMove(source, target);
+        ChessPiece capturedPiece = (ChessPiece) makeMove(source, target);
 
         if (testCheck(currentPlayer)) {
             undoMove(source, target, capturedPiece);
@@ -142,7 +136,7 @@ public class ChessMatch {
             }
         }
 
-        return (ChessPiece) capturedPiece;
+        return capturedPiece;
     }
 
     private void validateSourcePosition(Position position) {
@@ -169,7 +163,7 @@ public class ChessMatch {
         ChessPiece movingPiece = (ChessPiece) board.removePiece(source);
         movingPiece.increaseMoveCount();
 
-        Piece capturedPiece = board.removePiece(target);
+        ChessPiece capturedPiece = (ChessPiece) board.removePiece(target);
         board.placePiece(movingPiece, target);
 
         if (capturedPiece != null) {
@@ -208,7 +202,7 @@ public class ChessMatch {
 
             Position pawnPosition = new Position(targetRow, target.getColumn());
 
-            capturedPiece = board.removePiece(pawnPosition);
+            capturedPiece = (ChessPiece) board.removePiece(pawnPosition);
             capturedPieces.add(capturedPiece);
             piecesOnTheBoard.remove(capturedPiece);
         }
@@ -216,7 +210,7 @@ public class ChessMatch {
         return capturedPiece;
     }
 
-    private void undoMove(Position source, Position target, Piece capturedPiece) {
+    private void undoMove(Position source, Position target, ChessPiece capturedPiece) {
         ChessPiece movingPiece = (ChessPiece) board.removePiece(target);
         movingPiece.decreaseMoveCount();
 
@@ -271,7 +265,7 @@ public class ChessMatch {
         ChessPiece.Color opponentPlayer = getOpponentPlayer(color);
 
         return piecesOnTheBoard.stream()
-                .filter(piece -> ((ChessPiece) piece).getColor() == opponentPlayer)
+                .filter(piece -> piece.getColor() == opponentPlayer)
                 .anyMatch(piece -> {
                     boolean[][] possibleMoves = piece.computePossibleMoves();
                     return possibleMoves[kingPosition.getRow()][kingPosition.getColumn()];
@@ -280,10 +274,8 @@ public class ChessMatch {
 
     private ChessPiece searchKing(ChessPiece.Color color) {
         return piecesOnTheBoard.stream()
-                .filter(piece -> piece instanceof King
-                        && ((ChessPiece) piece).getColor() == color)
+                .filter(piece -> piece instanceof King && piece.getColor() == color)
                 .findFirst()
-                .map(ChessPiece.class::cast)
                 .orElseThrow(() -> new IllegalStateException(
                         "There is no " + color + " king on the board"));
     }
@@ -301,7 +293,7 @@ public class ChessMatch {
 
         List<Piece> piecesFiltered =
                 piecesOnTheBoard.stream()
-                        .filter(piece -> ((ChessPiece) piece).getColor() == color)
+                        .filter(piece -> piece.getColor() == color)
                         .collect(Collectors.toList());
 
         for (Piece piece : piecesFiltered) {
@@ -313,7 +305,7 @@ public class ChessMatch {
                         Position source = ((ChessPiece) piece).getChessPosition().toPosition();
                         Position target = new Position(i, j);
 
-                        Piece capturedPiece = makeMove(source, target);
+                        ChessPiece capturedPiece = (ChessPiece) makeMove(source, target);
                         boolean testCheck = testCheck(color);
                         undoMove(source, target, capturedPiece);
 
@@ -342,7 +334,7 @@ public class ChessMatch {
         }
 
         Position promotedPosition = promoted.getChessPosition().toPosition();
-        Piece promotedPiece = board.removePiece(promotedPosition);
+        ChessPiece promotedPiece = (ChessPiece) board.removePiece(promotedPosition);
         piecesOnTheBoard.remove(promotedPiece);
 
         ChessPiece newPiece = switch (type) {
