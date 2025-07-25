@@ -26,14 +26,12 @@ public class Program {
                 display.clearScreen();
                 display.printMatch(chessMatch, captured);
 
-                System.out.print("\nSource: ");
                 ChessPosition source = prompt.readChessPosition();
                 boolean[][] possibleMoves = chessMatch.computePossibleMoves(source);
 
                 display.clearScreen();
                 display.printBoard(chessMatch.getPieces(), possibleMoves);
 
-                System.out.print("\nTarget: ");
                 ChessPosition target = prompt.readChessPosition();
 
                 Optional.ofNullable(chessMatch.performChessMove(source, target))
