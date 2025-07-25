@@ -7,10 +7,6 @@ import java.util.List;
 
 public class Display {
 
-    public void clearScreen() {
-        System.out.print(AnsiEscapeCode.MOVE_CURSOR_HOME + AnsiEscapeCode.CLEAR_SCREEN);
-    }
-
     public void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
         printBoard(chessMatch.getPieces(), null);
 
@@ -42,6 +38,7 @@ public class Display {
     }
 
     public void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+        clearScreen();
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < pieces.length; i++) {
@@ -69,5 +66,9 @@ public class Display {
 
         stringBuilder.append("  a b c d e f g h");
         System.out.println(stringBuilder);
+    }
+
+    private void clearScreen() {
+        System.out.print(AnsiEscapeCode.MOVE_CURSOR_HOME + AnsiEscapeCode.CLEAR_SCREEN);
     }
 }
