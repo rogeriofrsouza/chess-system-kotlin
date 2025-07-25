@@ -23,13 +23,11 @@ public class Program {
 
         while (!chessMatch.isCheckMate()) {
             try {
-                display.clearScreen();
                 display.printMatch(chessMatch, captured);
 
                 ChessPosition source = prompt.readChessPosition();
                 boolean[][] possibleMoves = chessMatch.computePossibleMoves(source);
 
-                display.clearScreen();
                 display.printBoard(chessMatch.getPieces(), possibleMoves);
 
                 ChessPosition target = prompt.readChessPosition();
@@ -47,7 +45,6 @@ public class Program {
             }
         }
 
-        display.clearScreen();
         display.printMatch(chessMatch, captured);
     }
 }

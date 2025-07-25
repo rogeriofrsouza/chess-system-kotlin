@@ -57,14 +57,6 @@ class DisplayTest {
     }
 
     @Test
-    @DisplayName("should clear the console")
-    void clearScreen() {
-        display.clearScreen();
-        String expected = AnsiEscapeCode.MOVE_CURSOR_HOME + AnsiEscapeCode.CLEAR_SCREEN;
-        assertEquals(expected, outputStream.toString());
-    }
-
-    @Test
     @DisplayName("should print the match information and status")
     void printMatch_notCheckNotCheckmate_logMatch() {
         ChessMatch chessMatch = new ChessMatch();
@@ -165,7 +157,8 @@ class DisplayTest {
         };
 
         String stringExpected = String.format(
-            "8 %sR%s %n7 -%s %n6 -%s %n5 %sR%s %n  a b c d e f g h%n",
+            "%s%s8 %sR%s %n7 -%s %n6 -%s %n5 %sR%s %n  a b c d e f g h%n",
+            AnsiEscapeCode.MOVE_CURSOR_HOME, AnsiEscapeCode.CLEAR_SCREEN,
             AnsiEscapeCode.YELLOW, AnsiEscapeCode.RESET, AnsiEscapeCode.RESET,
             AnsiEscapeCode.RESET, AnsiEscapeCode.WHITE, AnsiEscapeCode.RESET);
 
@@ -187,7 +180,8 @@ class DisplayTest {
         boolean[][] possibleMoves = new boolean[][]{{true}, {true}, {false}, {false}};
 
         String stringExpected = String.format(
-            "8 %s%sR%s %n7 %s-%s %n6 -%s %n5 %sR%s %n  a b c d e f g h%n",
+            "%s%s8 %s%sR%s %n7 %s-%s %n6 -%s %n5 %sR%s %n  a b c d e f g h%n",
+            AnsiEscapeCode.MOVE_CURSOR_HOME, AnsiEscapeCode.CLEAR_SCREEN,
             AnsiEscapeCode.BLUE_BACKGROUND, AnsiEscapeCode.YELLOW, AnsiEscapeCode.RESET,
             AnsiEscapeCode.BLUE_BACKGROUND, AnsiEscapeCode.RESET, AnsiEscapeCode.RESET,
             AnsiEscapeCode.WHITE, AnsiEscapeCode.RESET);
