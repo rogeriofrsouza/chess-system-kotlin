@@ -10,6 +10,7 @@ class Prompt {
     private val promotionRegex = Regex("[BNRQ]")
 
     fun readChessPosition(): ChessPosition {
+        print("Enter position: ")
         val input = readln()
         require(input.length == 2) { "Invalid input. Expected 2 characters" }
 
