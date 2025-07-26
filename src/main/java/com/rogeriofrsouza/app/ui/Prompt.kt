@@ -7,8 +7,6 @@ import java.util.*
 
 class Prompt {
 
-    private val promotionRegex = Regex("[BNRQ]")
-
     fun readChessPosition(): ChessPosition {
         print("Enter position: ")
         val input = readln()
@@ -25,7 +23,7 @@ class Prompt {
             print("Enter piece for promotion (B/N/R/Q): ")
             val input = readln().trim().uppercase(Locale.US)
 
-            if (promotionRegex.matches(input)) {
+            if (Regex("[BNRQ]").matches(input)) {
                 return ChessMatch.possiblePromotedPieces.first { it.letter == input }
             }
 
