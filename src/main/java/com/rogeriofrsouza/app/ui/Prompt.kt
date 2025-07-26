@@ -8,14 +8,20 @@ import java.util.*
 class Prompt {
 
     fun readChessPosition(): ChessPosition {
-        print("Enter position: ")
-        val input = readln()
-        require(input.length == 2) { "Invalid input. Expected 2 characters" }
+        while (true) {
+            try {
+                print("Enter position: ")
+                val input = readln().trim().lowercase(Locale.US)
+                require(input.length == 2) { "Invalid input. Expected 2 characters" }
 
-        val column = input[0]
-        val row = Character.getNumericValue(input[1])
+                val column = input[0]
+                val row = Character.getNumericValue(input[1])
 
-        return ChessPosition(column, row)
+                return ChessPosition(column, row)
+            } catch (e: RuntimeException) {
+                println(e.message)
+            }
+        }
     }
 
     fun readPromotedPiece(): ChessPiece.Name {
