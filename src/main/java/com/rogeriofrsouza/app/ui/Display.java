@@ -7,16 +7,18 @@ import java.util.List;
 
 public class Display {
 
-    public void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
+    public void printMatch(ChessMatch chessMatch) {
         printBoard(chessMatch.getPieces(), null);
 
-        List<ChessPiece> white = captured.stream()
-            .filter(piece -> piece.getColor() == ChessPiece.Color.WHITE)
-            .toList();
+        List<ChessPiece> white = chessMatch.getCapturedPieces()
+                .stream()
+                .filter(piece -> piece.getColor() == ChessPiece.Color.WHITE)
+                .toList();
 
-        List<ChessPiece> black = captured.stream()
-            .filter(piece -> piece.getColor() == ChessPiece.Color.BLACK)
-            .toList();
+        List<ChessPiece> black = chessMatch.getCapturedPieces()
+                .stream()
+                .filter(piece -> piece.getColor() == ChessPiece.Color.BLACK)
+                .toList();
 
         System.out.println("\nCaptured pieces");
 

@@ -66,6 +66,8 @@ class DisplayTest {
             new Rook(board, ChessPiece.Color.WHITE), new Rook(board, ChessPiece.Color.WHITE),
             new Rook(board, ChessPiece.Color.BLACK), new Rook(board, ChessPiece.Color.BLACK));
 
+        chessMatch.getCapturedPieces().addAll(captured);
+
         String outputExpected = String.format(
             "%nCaptured pieces%nWhite: %s%s%n%sBlack: %s%s%n%s",
             AnsiEscapeCode.WHITE,
@@ -78,7 +80,7 @@ class DisplayTest {
             "Waiting player: " + chessMatch.getCurrentPlayer() + "\n";
 
         doNothing().when(display).printBoard(any(ChessPiece[][].class), any());
-        display.printMatch(chessMatch, captured);
+        display.printMatch(chessMatch);
 
         assertEquals(outputExpected, outputStream.toString());
         verify(display).printBoard(any(ChessPiece[][].class), any());
@@ -96,6 +98,8 @@ class DisplayTest {
         List<ChessPiece> captured = List.of(
             new Rook(board, ChessPiece.Color.WHITE), new Rook(board, ChessPiece.Color.WHITE));
 
+        chessMatch.getCapturedPieces().addAll(captured);
+
         String outputExpected = String.format(
             "%nCaptured pieces%nWhite: %s%s%n%sBlack: %s%s%n%s",
             AnsiEscapeCode.WHITE,
@@ -109,7 +113,7 @@ class DisplayTest {
             "CHECK!\n";
 
         doNothing().when(display).printBoard(any(ChessPiece[][].class), any());
-        display.printMatch(chessMatch, captured);
+        display.printMatch(chessMatch);
 
         assertEquals(outputExpected, outputStream.toString());
         verify(display).printBoard(any(ChessPiece[][].class), any());
@@ -127,6 +131,8 @@ class DisplayTest {
         List<ChessPiece> captured = List.of(
             new Rook(board, ChessPiece.Color.BLACK), new Rook(board, ChessPiece.Color.BLACK));
 
+        chessMatch.getCapturedPieces().addAll(captured);
+
         String stringBuilder = String.format(
             "%nCaptured pieces%nWhite: %s%s%n%sBlack: %s%s%n%s",
             AnsiEscapeCode.WHITE,
@@ -139,7 +145,7 @@ class DisplayTest {
             "CHECKMATE!\nWinner: " + chessMatch.getCurrentPlayer() + "\n";
 
         doNothing().when(display).printBoard(any(ChessPiece[][].class), any());
-        display.printMatch(chessMatch, captured);
+        display.printMatch(chessMatch);
 
         assertEquals(stringBuilder, outputStream.toString());
         verify(display).printBoard(any(ChessPiece[][].class), any());
