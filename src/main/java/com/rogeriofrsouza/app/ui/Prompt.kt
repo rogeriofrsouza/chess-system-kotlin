@@ -39,7 +39,7 @@ class Prompt {
             try {
                 block()
             } catch (e: Exception) {
-                println(e.message)
+                println(AnsiEscapeCode.RED + e.message + AnsiEscapeCode.RESET)
             }
         }
     }
