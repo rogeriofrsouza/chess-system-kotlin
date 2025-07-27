@@ -5,12 +5,10 @@ import com.rogeriofrsouza.app.boardgame.Piece;
 import com.rogeriofrsouza.app.boardgame.Position;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 import java.util.List;
 import java.util.Optional;
 
-@Getter
 @EqualsAndHashCode(callSuper = true)
 public abstract class ChessPiece extends Piece {
 
@@ -26,7 +24,7 @@ public abstract class ChessPiece extends Piece {
     }
 
     protected ChessPiece(
-        Board board, Color color, Name name, List<ChessMoveDirection> chessMoveDirections) {
+            Board board, Color color, Name name, List<ChessMoveDirection> chessMoveDirections) {
         super(board);
         this.color = color;
         this.name = name;
@@ -61,9 +59,9 @@ public abstract class ChessPiece extends Piece {
         boolean[][] possibleMoves = new boolean[getBoard().getRows()][getBoard().getColumns()];
 
         Optional.ofNullable(getChessMoveDirections())
-            .filter(directions -> !directions.isEmpty())
-            .ifPresent(directions -> directions.forEach(
-                direction -> checkMoves(possibleMoves, direction)));
+                .filter(directions -> !directions.isEmpty())
+                .ifPresent(directions -> directions.forEach(
+                        direction -> checkMoves(possibleMoves, direction)));
 
         return possibleMoves;
     }
@@ -80,7 +78,7 @@ public abstract class ChessPiece extends Piece {
 
             if (getBoard().thereIsAPiece(targetPosition)) {
                 possibleMoves[targetPosition.getRow()][targetPosition.getColumn()] =
-                    isThereOpponentPiece(targetPosition);
+                        isThereOpponentPiece(targetPosition);
                 return;
             }
 
@@ -95,15 +93,31 @@ public abstract class ChessPiece extends Piece {
             case LEFT -> targetPosition.setColumn(targetPosition.getColumn() - 1);
             case RIGHT -> targetPosition.setColumn(targetPosition.getColumn() + 1);
             case UP_LEFT -> targetPosition.setValues(
-                targetPosition.getRow() - 1, targetPosition.getColumn() - 1);
+                    targetPosition.getRow() - 1, targetPosition.getColumn() - 1);
             case UP_RIGHT -> targetPosition.setValues(
-                targetPosition.getRow() - 1, targetPosition.getColumn() + 1);
+                    targetPosition.getRow() - 1, targetPosition.getColumn() + 1);
             case DOWN_LEFT -> targetPosition.setValues(
-                targetPosition.getRow() + 1, targetPosition.getColumn() - 1);
+                    targetPosition.getRow() + 1, targetPosition.getColumn() - 1);
             case DOWN_RIGHT -> targetPosition.setValues(
-                targetPosition.getRow() + 1, targetPosition.getColumn() + 1);
+                    targetPosition.getRow() + 1, targetPosition.getColumn() + 1);
             default -> throw new IllegalArgumentException("Invalid direction");
         }
+    }
+
+    public Name getName() {
+        return this.name;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public int getMoveCount() {
+        return this.moveCount;
+    }
+
+    public List<ChessMoveDirection> getChessMoveDirections() {
+        return this.chessMoveDirections;
     }
 
     @AllArgsConstructor
