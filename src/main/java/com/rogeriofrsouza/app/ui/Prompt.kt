@@ -7,33 +7,40 @@ import java.util.*
 
 class Prompt {
 
-    fun readChessPosition(): ChessPosition {
-        while (true) {
-            try {
-                print("Enter position: ")
-                val input = readln().trim().lowercase(Locale.US)
-                require(input.length == 2) { "Invalid input. Expected 2 characters" }
+    fun readChessPosition(): ChessPosition = readUntilValid {
+        print("Enter position: ")
+        val input = readln().trim().lowercase(Locale.US)
 
-                val column = input[0]
-                val row = Character.getNumericValue(input[1])
+        require(input.length == 2) { "Expected two characters" }
 
-                return ChessPosition(column, row)
-            } catch (e: RuntimeException) {
-                println(e.message)
-            }
-        }
+        val column = input[0]
+        val row = Character.getNumericValue(input[1])
+
+        return ChessPosition(column, row)
     }
 
-    fun readPromotedPiece(): ChessPiece.Name {
+    fun readPromotedPiece(): ChessPiece.Name = readUntilValid {
+        print(
+            "Enter piece for promotion (" +
+                    "${ChessMatch.possiblePromotedPieces.joinToString("/") { it.letter }}): "
+        )
+
+        val input = readln().trim().uppercase(Locale.US)
+
+        require(input.length == 1) { "Expected one character" }
+
+        return ChessMatch.possiblePromotedPieces
+            .firstOrNull { it.letter == input }
+            ?: error("Invalid piece")
+    }
+
+    private inline fun <T> readUntilValid(block: () -> T): T {
         while (true) {
-            print("Enter piece for promotion (B/N/R/Q): ")
-            val input = readln().trim().uppercase(Locale.US)
-
-            if (Regex("[BNRQ]").matches(input)) {
-                return ChessMatch.possiblePromotedPieces.first { it.letter == input }
+            try {
+                block()
+            } catch (e: Exception) {
+                println(e.message)
             }
-
-            println("Invalid piece letter")
         }
     }
 }

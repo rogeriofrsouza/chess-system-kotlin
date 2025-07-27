@@ -3,7 +3,6 @@ package com.rogeriofrsouza.app.ui
 import com.rogeriofrsouza.app.chess.ChessMatch
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.io.ByteArrayInputStream
 
 class PromptTest {
@@ -18,14 +17,6 @@ class PromptTest {
         val result = prompt.readChessPosition()
         assertEquals('e', result.column)
         assertEquals(4, result.row)
-    }
-
-    @Test
-    fun `should throw when chess position input is invalid`() {
-        val input = "9\n"
-        System.setIn(ByteArrayInputStream(input.toByteArray()))
-
-        assertThrows<IllegalArgumentException> { prompt.readChessPosition() }
     }
 
     @Test
