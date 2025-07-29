@@ -5,6 +5,7 @@ import com.rogeriofrsouza.app.chess.ChessMatch;
 import com.rogeriofrsouza.app.chess.ChessPiece;
 import com.rogeriofrsouza.app.chess.ChessPosition;
 import com.rogeriofrsouza.app.ui.Display;
+import com.rogeriofrsouza.app.ui.DisplayKt;
 import com.rogeriofrsouza.app.ui.Prompt;
 
 import java.util.InputMismatchException;
@@ -18,6 +19,7 @@ public class Program {
         Scanner scanner = new Scanner(System.in);
 
         Display display = new Display();
+        var displayKt = new DisplayKt();
         Prompt prompt = new Prompt();
         ChessMatch chessMatch = new ChessMatch();
 
@@ -28,7 +30,7 @@ public class Program {
                 ChessPosition source = prompt.readChessPosition();
                 boolean[][] possibleMoves = chessMatch.computePossibleMoves(source);
 
-                display.printBoard(chessMatch.getPieces(), possibleMoves);
+                displayKt.printBoard(chessMatch.getPieces(), possibleMoves);
 
                 ChessPosition target = prompt.readChessPosition();
 
