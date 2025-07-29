@@ -3,7 +3,7 @@ package com.rogeriofrsouza.app.ui
 import com.rogeriofrsouza.app.chess.ChessMatch
 import com.rogeriofrsouza.app.chess.ChessPiece
 
-class DisplayKt {
+class Display {
 
     fun printMatch(chessMatch: ChessMatch) {
         printBoard(chessMatch.getPieces(), arrayOfNulls(8))

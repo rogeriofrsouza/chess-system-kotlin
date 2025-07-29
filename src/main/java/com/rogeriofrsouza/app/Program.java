@@ -4,7 +4,7 @@ import com.rogeriofrsouza.app.chess.ChessException;
 import com.rogeriofrsouza.app.chess.ChessMatch;
 import com.rogeriofrsouza.app.chess.ChessPiece;
 import com.rogeriofrsouza.app.chess.ChessPosition;
-import com.rogeriofrsouza.app.ui.DisplayKt;
+import com.rogeriofrsouza.app.ui.Display;
 import com.rogeriofrsouza.app.ui.Prompt;
 
 import java.util.InputMismatchException;
@@ -17,18 +17,18 @@ public class Program {
         Locale.setDefault(Locale.US);
         Scanner scanner = new Scanner(System.in);
 
-        DisplayKt displayKt = new DisplayKt();
+        Display display = new Display();
         Prompt prompt = new Prompt();
         ChessMatch chessMatch = new ChessMatch();
 
         while (!chessMatch.isCheckMate()) {
             try {
-                displayKt.printMatch(chessMatch);
+                display.printMatch(chessMatch);
 
                 ChessPosition source = prompt.readChessPosition();
                 boolean[][] possibleMoves = chessMatch.computePossibleMoves(source);
 
-                displayKt.printBoard(chessMatch.getPieces(), possibleMoves);
+                display.printBoard(chessMatch.getPieces(), possibleMoves);
 
                 ChessPosition target = prompt.readChessPosition();
 
@@ -44,6 +44,6 @@ public class Program {
             }
         }
 
-        displayKt.printMatch(chessMatch);
+        display.printMatch(chessMatch);
     }
 }
