@@ -4,7 +4,6 @@ import com.rogeriofrsouza.app.chess.ChessException;
 import com.rogeriofrsouza.app.chess.ChessMatch;
 import com.rogeriofrsouza.app.chess.ChessPiece;
 import com.rogeriofrsouza.app.chess.ChessPosition;
-import com.rogeriofrsouza.app.ui.Display;
 import com.rogeriofrsouza.app.ui.DisplayKt;
 import com.rogeriofrsouza.app.ui.Prompt;
 
