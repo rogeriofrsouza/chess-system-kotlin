@@ -4,14 +4,12 @@ import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.boardgame.Piece;
 import com.rogeriofrsouza.app.boardgame.Position;
 import com.rogeriofrsouza.app.chess.pieces.*;
-import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
 @Setter
 public class ChessMatch {
 
@@ -43,7 +41,7 @@ public class ChessMatch {
     private void initialSetup() {
         ChessPiece.Color color = ChessPiece.Color.BLACK;
 
-        for (int row : new int[] {8, 7, 2, 1}) {
+        for (int row : new int[]{8, 7, 2, 1}) {
             if (row <= 2) {
                 color = ChessPiece.Color.WHITE;
             }
@@ -125,7 +123,7 @@ public class ChessMatch {
             if (movedPiece.getColor() == ChessPiece.Color.WHITE
                     && target.getRow() == 0
                     || movedPiece.getColor() == ChessPiece.Color.BLACK
-                            && target.getRow() == 7) {
+                    && target.getRow() == 7) {
                 promoted = movedPiece;
                 promoted = replacePromotedPiece("Q");
             }
@@ -346,5 +344,41 @@ public class ChessMatch {
         piecesOnTheBoard.add(newPiece);
 
         return newPiece;
+    }
+
+    public int getTurn() {
+        return this.turn;
+    }
+
+    public ChessPiece.Color getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    public boolean isCheck() {
+        return this.check;
+    }
+
+    public boolean isCheckMate() {
+        return this.checkMate;
+    }
+
+    public ChessPiece getEnPassantVulnerable() {
+        return this.enPassantVulnerable;
+    }
+
+    public ChessPiece getPromoted() {
+        return this.promoted;
+    }
+
+    public Board getBoard() {
+        return this.board;
+    }
+
+    public List<ChessPiece> getPiecesOnTheBoard() {
+        return this.piecesOnTheBoard;
+    }
+
+    public List<ChessPiece> getCapturedPieces() {
+        return this.capturedPieces;
     }
 }
