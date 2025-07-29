@@ -18,14 +18,13 @@ public class Program {
         Locale.setDefault(Locale.US);
         Scanner scanner = new Scanner(System.in);
 
-        Display display = new Display();
-        var displayKt = new DisplayKt();
+        DisplayKt displayKt = new DisplayKt();
         Prompt prompt = new Prompt();
         ChessMatch chessMatch = new ChessMatch();
 
         while (!chessMatch.isCheckMate()) {
             try {
-                display.printMatch(chessMatch);
+                displayKt.printMatch(chessMatch);
 
                 ChessPosition source = prompt.readChessPosition();
                 boolean[][] possibleMoves = chessMatch.computePossibleMoves(source);
@@ -46,6 +45,6 @@ public class Program {
             }
         }
 
-        display.printMatch(chessMatch);
+        displayKt.printMatch(chessMatch);
     }
 }

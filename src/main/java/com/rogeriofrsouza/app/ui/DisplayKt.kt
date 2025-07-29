@@ -1,8 +1,39 @@
 package com.rogeriofrsouza.app.ui
 
+import com.rogeriofrsouza.app.chess.ChessMatch
 import com.rogeriofrsouza.app.chess.ChessPiece
 
 class DisplayKt {
+
+    fun printMatch(chessMatch: ChessMatch) {
+        printBoard(chessMatch.getPieces(), arrayOfNulls(8))
+
+        val matchDisplay = renderMatch(chessMatch)
+        println(matchDisplay)
+    }
+
+    private fun renderMatch(chessMatch: ChessMatch): String =
+        buildString {
+            val capturedWhitePieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.WHITE }
+            val capturedBlackPieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.BLACK }
+
+            appendLine()
+                .appendLine("Captured pieces")
+                .appendLine("White: ${AnsiEscapeCode.WHITE}${capturedWhitePieces}${AnsiEscapeCode.RESET}")
+                .appendLine("Black: ${AnsiEscapeCode.YELLOW}${capturedBlackPieces}${AnsiEscapeCode.RESET}")
+                .appendLine("Turn: ${chessMatch.turn}")
+
+            if (chessMatch.isCheckMate) {
+                appendLine("CHECKMATE!")
+                    .append("Winner: ${chessMatch.currentPlayer}")
+            } else {
+                appendLine("Waiting player: ${chessMatch.currentPlayer}")
+
+                if (chessMatch.isCheck) {
+                    append("CHECK!")
+                }
+            }
+        }
 
     fun printBoard(pieces: Array<Array<ChessPiece?>>, possibleMoves: Array<BooleanArray?>) {
         clearScreen()
