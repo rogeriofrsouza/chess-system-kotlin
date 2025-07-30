@@ -51,24 +51,27 @@ class Display {
             val capturedBlackPieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.BLACK }
 
             appendLine("Captured pieces")
-                .appendLine("White: ${AnsiEscapeCode.WHITE}${capturedWhitePieces}${AnsiEscapeCode.RESET}")
-                .appendLine("Black: ${AnsiEscapeCode.YELLOW}${capturedBlackPieces}${AnsiEscapeCode.RESET}")
+                .appendLine("White: ${formatWithAnsiColor(ChessPiece.Color.WHITE, capturedWhitePieces)}")
+                .appendLine("Black: ${formatWithAnsiColor(ChessPiece.Color.BLACK, capturedBlackPieces)}")
                 .appendLine()
 
             val currentPlayer = chessMatch.currentPlayer
 
             if (chessMatch.isCheckMate) {
                 appendLine("CHECKMATE!")
-                    .appendLine("Winner: ${getColorCode(currentPlayer)}$currentPlayer${AnsiEscapeCode.RESET}")
+                    .appendLine("Winner: ${formatWithAnsiColor(currentPlayer, currentPlayer)}")
             } else {
                 appendLine("Turn: ${chessMatch.turn}")
-                    .appendLine("Waiting player: ${getColorCode(currentPlayer)}$currentPlayer${AnsiEscapeCode.RESET}")
+                    .appendLine("Waiting player: ${formatWithAnsiColor(currentPlayer, currentPlayer)}")
 
                 if (chessMatch.isCheck) {
                     appendLine("CHECK!")
                 }
             }
         }
+
+    private fun <T> formatWithAnsiColor(color: ChessPiece.Color, obj: T): String =
+        "${getColorCode(color)}$obj${AnsiEscapeCode.RESET}"
 
     private fun getColorCode(color: ChessPiece.Color): String {
         return if (color == ChessPiece.Color.WHITE)
