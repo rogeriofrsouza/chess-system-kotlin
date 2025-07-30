@@ -59,10 +59,10 @@ class Display {
 
             if (chessMatch.isCheckMate) {
                 appendLine("CHECKMATE!")
-                    .appendLine("Winner: $currentPlayer")
+                    .appendLine("Winner: ${getColorCode(currentPlayer)}$currentPlayer${AnsiEscapeCode.RESET}")
             } else {
                 appendLine("Turn: ${chessMatch.turn}")
-                    .appendLine("Waiting player: $currentPlayer")
+                    .appendLine("Waiting player: ${getColorCode(currentPlayer)}$currentPlayer${AnsiEscapeCode.RESET}")
 
                 if (chessMatch.isCheck) {
                     appendLine("CHECK!")
