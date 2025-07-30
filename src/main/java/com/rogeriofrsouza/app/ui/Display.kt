@@ -26,22 +26,17 @@ class Display {
     private fun renderBoard(pieces: Array<Array<ChessPiece?>>, possibleMoves: Array<BooleanArray?>): String =
         buildString {
             pieces.forEachIndexed { i, row ->
-                append((8 - i)).append(" ")
+                append("${8 - i} ")
 
                 row.forEachIndexed { j, piece ->
                     if (possibleMoves.getOrNull(i)?.getOrNull(j) == true) {
                         append(AnsiEscapeCode.BLUE_BACKGROUND)
                     }
 
-                    when (piece) {
-                        null -> append("-")
-                        else -> {
-                            val colorCode = getPieceColorCode(piece)
-                            append(colorCode).append(piece)
-                        }
-                    }
+                    if (piece == null) append("-")
+                    else append("${getPieceColorCode(piece)}$piece")
 
-                    append(AnsiEscapeCode.RESET).append(" ")
+                    append("${AnsiEscapeCode.RESET} ")
                 }
 
                 appendLine()
