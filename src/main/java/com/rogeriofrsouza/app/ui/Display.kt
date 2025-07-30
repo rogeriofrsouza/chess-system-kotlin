@@ -55,12 +55,14 @@ class Display {
                 .appendLine("Black: ${AnsiEscapeCode.YELLOW}${capturedBlackPieces}${AnsiEscapeCode.RESET}")
                 .appendLine()
 
+            val currentPlayer = chessMatch.currentPlayer
+
             if (chessMatch.isCheckMate) {
                 appendLine("CHECKMATE!")
-                    .appendLine("Winner: ${chessMatch.currentPlayer}")
+                    .appendLine("Winner: $currentPlayer")
             } else {
                 appendLine("Turn: ${chessMatch.turn}")
-                    .appendLine("Waiting player: ${chessMatch.currentPlayer}")
+                    .appendLine("Waiting player: $currentPlayer")
 
                 if (chessMatch.isCheck) {
                     appendLine("CHECK!")
