@@ -12,29 +12,6 @@ class Display {
         print(matchDisplay)
     }
 
-    private fun renderMatch(chessMatch: ChessMatch): String =
-        buildString {
-            val capturedWhitePieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.WHITE }
-            val capturedBlackPieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.BLACK }
-
-            appendLine("Captured pieces")
-                .appendLine("White: ${AnsiEscapeCode.WHITE}${capturedWhitePieces}${AnsiEscapeCode.RESET}")
-                .appendLine("Black: ${AnsiEscapeCode.YELLOW}${capturedBlackPieces}${AnsiEscapeCode.RESET}")
-                .appendLine()
-
-            if (chessMatch.isCheckMate) {
-                appendLine("CHECKMATE!")
-                    .appendLine("Winner: ${chessMatch.currentPlayer}")
-            } else {
-                appendLine("Turn: ${chessMatch.turn}")
-                    .appendLine("Waiting player: ${chessMatch.currentPlayer}")
-
-                if (chessMatch.isCheck) {
-                    appendLine("CHECK!")
-                }
-            }
-        }
-
     fun printBoard(pieces: Array<Array<ChessPiece?>>, possibleMoves: Array<BooleanArray?>) {
         clearScreen()
 
@@ -71,6 +48,29 @@ class Display {
             }
 
             appendLine("  a b c d e f g h").appendLine()
+        }
+
+    private fun renderMatch(chessMatch: ChessMatch): String =
+        buildString {
+            val capturedWhitePieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.WHITE }
+            val capturedBlackPieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.BLACK }
+
+            appendLine("Captured pieces")
+                .appendLine("White: ${AnsiEscapeCode.WHITE}${capturedWhitePieces}${AnsiEscapeCode.RESET}")
+                .appendLine("Black: ${AnsiEscapeCode.YELLOW}${capturedBlackPieces}${AnsiEscapeCode.RESET}")
+                .appendLine()
+
+            if (chessMatch.isCheckMate) {
+                appendLine("CHECKMATE!")
+                    .appendLine("Winner: ${chessMatch.currentPlayer}")
+            } else {
+                appendLine("Turn: ${chessMatch.turn}")
+                    .appendLine("Waiting player: ${chessMatch.currentPlayer}")
+
+                if (chessMatch.isCheck) {
+                    appendLine("CHECK!")
+                }
+            }
         }
 
     private fun getPieceColorCode(piece: ChessPiece): String {
