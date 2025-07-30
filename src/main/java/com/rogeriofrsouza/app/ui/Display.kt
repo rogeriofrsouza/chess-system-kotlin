@@ -34,7 +34,7 @@ class Display {
                     }
 
                     if (piece == null) append("-")
-                    else append("${getPieceColorCode(piece)}$piece")
+                    else append("${getColorCode(piece.color)}$piece")
 
                     append("${AnsiEscapeCode.RESET} ")
                 }
@@ -68,8 +68,8 @@ class Display {
             }
         }
 
-    private fun getPieceColorCode(piece: ChessPiece): String {
-        return if (piece.color == ChessPiece.Color.WHITE)
+    private fun getColorCode(color: ChessPiece.Color): String {
+        return if (color == ChessPiece.Color.WHITE)
             AnsiEscapeCode.WHITE
         else
             AnsiEscapeCode.YELLOW
