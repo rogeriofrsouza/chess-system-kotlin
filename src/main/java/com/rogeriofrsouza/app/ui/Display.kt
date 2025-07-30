@@ -9,7 +9,7 @@ class Display {
         printBoard(chessMatch.getPieces(), arrayOfNulls(8))
 
         val matchDisplay = renderMatch(chessMatch)
-        println(matchDisplay)
+        print(matchDisplay)
     }
 
     private fun renderMatch(chessMatch: ChessMatch): String =
@@ -17,20 +17,20 @@ class Display {
             val capturedWhitePieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.WHITE }
             val capturedBlackPieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.BLACK }
 
-            appendLine()
-                .appendLine("Captured pieces")
+            appendLine("Captured pieces")
                 .appendLine("White: ${AnsiEscapeCode.WHITE}${capturedWhitePieces}${AnsiEscapeCode.RESET}")
                 .appendLine("Black: ${AnsiEscapeCode.YELLOW}${capturedBlackPieces}${AnsiEscapeCode.RESET}")
-                .appendLine("Turn: ${chessMatch.turn}")
+                .appendLine()
 
             if (chessMatch.isCheckMate) {
                 appendLine("CHECKMATE!")
-                    .append("Winner: ${chessMatch.currentPlayer}")
+                    .appendLine("Winner: ${chessMatch.currentPlayer}")
             } else {
-                appendLine("Waiting player: ${chessMatch.currentPlayer}")
+                appendLine("Turn: ${chessMatch.turn}")
+                    .appendLine("Waiting player: ${chessMatch.currentPlayer}")
 
                 if (chessMatch.isCheck) {
-                    append("CHECK!")
+                    appendLine("CHECK!")
                 }
             }
         }
@@ -39,7 +39,7 @@ class Display {
         clearScreen()
 
         val boardDisplay = renderBoard(pieces, possibleMoves)
-        println(boardDisplay)
+        print(boardDisplay)
     }
 
     private fun clearScreen() {
@@ -70,7 +70,7 @@ class Display {
                 appendLine()
             }
 
-            append("  a b c d e f g h")
+            appendLine("  a b c d e f g h").appendLine()
         }
 
     private fun getPieceColorCode(piece: ChessPiece): String {
