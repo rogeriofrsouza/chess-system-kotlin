@@ -30,9 +30,7 @@ class Display {
                         append(AnsiEscapeCode.BLUE_BACKGROUND)
                     }
 
-                    if (piece == null) append("-")
-                    else append("${getColorCode(piece.color)}$piece")
-
+                    append(piece?.let { "${getColorCode(it.color)}$it" } ?: "-")
                     append("${AnsiEscapeCode.RESET} ")
                 }
 
