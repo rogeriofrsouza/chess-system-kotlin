@@ -1,6 +1,5 @@
-package com.rogeriofrsouza.app.chess;
+package com.rogeriofrsouza.app.chess
 
-public enum Color {
-    BLACK,
-    WHITE
+enum class Color {
+    BLACK, WHITE
 }
