@@ -66,13 +66,12 @@ class Display {
             }
         }
 
-    private fun <T> formatWithAnsiColor(color: Color, obj: T): String =
-        "${getColorCode(color)}$obj${AnsiEscapeCode.RESET}"
-
-    private fun getColorCode(color: Color): String {
-        return if (color == Color.WHITE)
+    private fun <T> formatWithAnsiColor(color: Color, obj: T): String {
+        val ansiColor = if (color == Color.WHITE)
             AnsiEscapeCode.WHITE
         else
             AnsiEscapeCode.YELLOW
+
+        return "$ansiColor$obj${AnsiEscapeCode.RESET}"
     }
 }
