@@ -8,16 +8,12 @@ class Display {
 
     fun printMatch(chessMatch: ChessMatch) {
         printBoard(chessMatch.getPieces(), arrayOfNulls(8))
-
-        val matchDisplay = renderMatch(chessMatch)
-        print(matchDisplay)
+        print(renderMatch(chessMatch))
     }
 
     fun printBoard(pieces: Array<Array<ChessPiece?>>, possibleMoves: Array<BooleanArray?>) {
         clearScreen()
-
-        val boardDisplay = renderBoard(pieces, possibleMoves)
-        print(boardDisplay)
+        print(renderBoard(pieces, possibleMoves))
     }
 
     private fun clearScreen() {
