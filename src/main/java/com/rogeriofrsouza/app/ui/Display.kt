@@ -26,12 +26,13 @@ class Display {
                 append("${8 - i} ")
 
                 row.forEachIndexed { j, piece ->
-                    if (possibleMoves.getOrNull(i)?.getOrNull(j) == true) {
-                        append(AnsiEscapeCode.BLUE_BACKGROUND)
-                    }
+                    val isPossible = possibleMoves.getOrNull(i)?.getOrNull(j) == true
+                    if (isPossible) append(AnsiEscapeCode.BLUE_BACKGROUND)
 
-                    append(piece?.let { "${getColorCode(it.color)}$it" } ?: "-")
-                    append("${AnsiEscapeCode.RESET} ")
+                    append(piece?.let { formatWithAnsiColor(it.color, it) } ?: "-")
+
+                    if (isPossible) append(AnsiEscapeCode.RESET)
+                    append(" ")
                 }
 
                 appendLine()
