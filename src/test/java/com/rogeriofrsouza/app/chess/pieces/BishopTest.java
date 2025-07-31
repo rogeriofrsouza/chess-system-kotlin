@@ -1,8 +1,8 @@
 package com.rogeriofrsouza.app.chess.pieces;
 
 import com.rogeriofrsouza.app.boardgame.Board;
-import com.rogeriofrsouza.app.chess.ChessPiece;
 import com.rogeriofrsouza.app.chess.ChessPosition;
+import com.rogeriofrsouza.app.chess.Color;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,9 +19,9 @@ class BishopTest {
     @DisplayName("possible moves for a Bishop given specific board setup")
     void computePossibleMoves() {
         Board board = new Board(8, 8);
-        Bishop bishop = new Bishop(board, ChessPiece.Color.WHITE);
-        Rook rook = new Rook(board, ChessPiece.Color.WHITE);
-        Knight knight = new Knight(board, ChessPiece.Color.BLACK);
+        Bishop bishop = new Bishop(board, Color.WHITE);
+        Rook rook = new Rook(board, Color.WHITE);
+        Knight knight = new Knight(board, Color.BLACK);
 
         board.placePiece(bishop, new ChessPosition('b', 2).toPosition());
         board.placePiece(rook, new ChessPosition('a', 1).toPosition());

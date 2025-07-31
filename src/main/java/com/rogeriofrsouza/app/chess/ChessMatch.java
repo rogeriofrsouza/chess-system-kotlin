@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class ChessMatch {
 
     private int turn;
-    private ChessPiece.Color currentPlayer;
+    private Color currentPlayer;
     private boolean check;
     private boolean checkMate;
     private ChessPiece enPassantVulnerable;
@@ -33,17 +33,17 @@ public class ChessMatch {
     public ChessMatch() {
         board = new Board(8, 8);
         turn = 1;
-        currentPlayer = ChessPiece.Color.WHITE;
+        currentPlayer = Color.WHITE;
 
         initialSetup();
     }
 
     private void initialSetup() {
-        ChessPiece.Color color = ChessPiece.Color.BLACK;
+        Color color = Color.BLACK;
 
         for (int row : new int[]{8, 7, 2, 1}) {
             if (row <= 2) {
-                color = ChessPiece.Color.WHITE;
+                color = Color.WHITE;
             }
 
             for (char column = 'a'; column < 'i'; column++) {
@@ -58,7 +58,7 @@ public class ChessMatch {
         }
     }
 
-    private ChessPiece switchPiece(char column, Board board, ChessPiece.Color color) {
+    private ChessPiece switchPiece(char column, Board board, Color color) {
         return switch (column) {
             case 'a', 'h' -> new Rook(board, color);
             case 'b', 'g' -> new Knight(board, color);
@@ -120,9 +120,9 @@ public class ChessMatch {
 
         if (movedPiece instanceof Pawn) {
             // Special move: Promotion
-            if (movedPiece.getColor() == ChessPiece.Color.WHITE
+            if (movedPiece.getColor() == Color.WHITE
                     && target.getRow() == 0
-                    || movedPiece.getColor() == ChessPiece.Color.BLACK
+                    || movedPiece.getColor() == Color.BLACK
                     && target.getRow() == 7) {
                 promoted = movedPiece;
                 promoted = replacePromotedPiece("Q");
@@ -192,7 +192,7 @@ public class ChessMatch {
                 && source.getColumn() != target.getColumn()
                 && capturedPiece == null) {
             int targetRow =
-                    movingPiece.getColor() == ChessPiece.Color.WHITE
+                    movingPiece.getColor() == Color.WHITE
                             ? target.getRow() + 1
                             : target.getRow() - 1;
 
@@ -244,7 +244,7 @@ public class ChessMatch {
                 && capturedPiece == enPassantVulnerable) {
             ChessPiece pawn = (ChessPiece) board.removePiece(target);
 
-            int targetRow = movingPiece.getColor() == ChessPiece.Color.WHITE ? 3 : 4;
+            int targetRow = movingPiece.getColor() == Color.WHITE ? 3 : 4;
             Position pawnPosition = new Position(targetRow, target.getColumn());
 
             board.placePiece(pawn, pawnPosition);
@@ -256,9 +256,9 @@ public class ChessMatch {
         currentPlayer = getOpponentPlayer(currentPlayer);
     }
 
-    private boolean testCheck(ChessPiece.Color color) {
+    private boolean testCheck(Color color) {
         Position kingPosition = searchKing(color).getChessPosition().toPosition();
-        ChessPiece.Color opponentPlayer = getOpponentPlayer(color);
+        Color opponentPlayer = getOpponentPlayer(color);
 
         return piecesOnTheBoard.stream()
                 .filter(piece -> piece.getColor() == opponentPlayer)
@@ -268,7 +268,7 @@ public class ChessMatch {
                 });
     }
 
-    private ChessPiece searchKing(ChessPiece.Color color) {
+    private ChessPiece searchKing(Color color) {
         return piecesOnTheBoard.stream()
                 .filter(piece -> piece instanceof King && piece.getColor() == color)
                 .findFirst()
@@ -276,13 +276,13 @@ public class ChessMatch {
                         "There is no " + color + " king on the board"));
     }
 
-    private ChessPiece.Color getOpponentPlayer(ChessPiece.Color color) {
-        return color == ChessPiece.Color.WHITE
-                ? ChessPiece.Color.BLACK
-                : ChessPiece.Color.WHITE;
+    private Color getOpponentPlayer(Color color) {
+        return color == Color.WHITE
+                ? Color.BLACK
+                : Color.WHITE;
     }
 
-    private boolean testCheckMate(ChessPiece.Color color) {
+    private boolean testCheckMate(Color color) {
         if (!testCheck(color)) {
             return false;
         }
@@ -350,7 +350,7 @@ public class ChessMatch {
         return this.turn;
     }
 
-    public ChessPiece.Color getCurrentPlayer() {
+    public Color getCurrentPlayer() {
         return this.currentPlayer;
     }
 

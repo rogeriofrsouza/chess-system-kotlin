@@ -4,6 +4,7 @@ import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.boardgame.Position;
 import com.rogeriofrsouza.app.chess.ChessMatch;
 import com.rogeriofrsouza.app.chess.ChessPiece;
+import com.rogeriofrsouza.app.chess.Color;
 
 public class Pawn extends ChessPiece {
 

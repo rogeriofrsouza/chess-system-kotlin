@@ -3,6 +3,7 @@ package com.rogeriofrsouza.app.chess.pieces;
 import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.chess.ChessMoveDirection;
 import com.rogeriofrsouza.app.chess.ChessPiece;
+import com.rogeriofrsouza.app.chess.Color;
 
 import java.util.List;
 

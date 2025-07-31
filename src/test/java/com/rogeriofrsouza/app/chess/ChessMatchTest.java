@@ -52,7 +52,7 @@ class ChessMatchTest {
         ChessMatch chessMatch = new ChessMatch();
 
         assertEquals(1, chessMatch.getTurn());
-        assertEquals(ChessPiece.Color.WHITE, chessMatch.getCurrentPlayer());
+        assertEquals(Color.WHITE, chessMatch.getCurrentPlayer());
         assertEquals(32, chessMatch.getPiecesOnTheBoard().size());
     }
 
@@ -62,7 +62,7 @@ class ChessMatchTest {
         ChessPosition chessPosition = new ChessPosition('a', 4);
         Position position = new Position(4, 0);
 
-        Rook chessPiece = new Rook(new Board(3, 3), ChessPiece.Color.WHITE);
+        Rook chessPiece = new Rook(new Board(3, 3), Color.WHITE);
         boolean[][] possibleMovesExpected = new boolean[][] {{true, true, false}};
 
         doReturn(true).when(boardMock).thereIsAPiece(position);
@@ -85,7 +85,7 @@ class ChessMatchTest {
     void possibleMoves_noPossibleMoves_throwChessException() {
         ChessPosition chessPosition = new ChessPosition('a', 4);
         Position position = new Position(4, 0);
-        Rook chessPiece = new Rook(new Board(3, 3), ChessPiece.Color.WHITE);
+        Rook chessPiece = new Rook(new Board(3, 3), Color.WHITE);
 
         doReturn(true).when(boardMock).thereIsAPiece(position);
         doReturn(chessPiece).doReturn(pieceMock).when(boardMock).piece(position);
@@ -101,7 +101,7 @@ class ChessMatchTest {
     void possibleMoves_chosenPieceNotYours_throwChessException() {
         ChessPosition chessPosition = new ChessPosition('a', 4);
         Position position = new Position(4, 0);
-        Rook chessPiece = new Rook(new Board(3, 3), ChessPiece.Color.BLACK);
+        Rook chessPiece = new Rook(new Board(3, 3), Color.BLACK);
 
         doReturn(true).when(boardMock).thereIsAPiece(position);
         doReturn(chessPiece).when(boardMock).piece(position);
@@ -135,15 +135,15 @@ class ChessMatchTest {
 
         ChessPiece newPiece =
                 switch (type) {
-                    case "B" -> new Bishop(boardMock, ChessPiece.Color.WHITE);
-                    case "N" -> new Knight(boardMock, ChessPiece.Color.WHITE);
-                    case "R" -> new Rook(boardMock, ChessPiece.Color.WHITE);
-                    default -> new Queen(boardMock, ChessPiece.Color.WHITE);
+                    case "B" -> new Bishop(boardMock, Color.WHITE);
+                    case "N" -> new Knight(boardMock, Color.WHITE);
+                    case "R" -> new Rook(boardMock, Color.WHITE);
+                    default -> new Queen(boardMock, Color.WHITE);
                 };
 
         when(chessPieceMock.getChessPosition()).thenReturn(chessPosition);
-        when(boardMock.removePiece(promotedPosition)).thenReturn(new Rook(boardMock, ChessPiece.Color.WHITE));
-        when(chessPieceMock.getColor()).thenReturn(ChessPiece.Color.WHITE);
+        when(boardMock.removePiece(promotedPosition)).thenReturn(new Rook(boardMock, Color.WHITE));
+        when(chessPieceMock.getColor()).thenReturn(Color.WHITE);
         doNothing().when(boardMock).placePiece(newPiece, promotedPosition);
 
         assertEquals(newPiece, chessMatchMock.replacePromotedPiece(type));
@@ -152,7 +152,7 @@ class ChessMatchTest {
     @Test
     @DisplayName("should return the current promoted piece if type isn't valid")
     void replacePromotedPiece_typeNonValid_returnPromotedPiece() {
-        Pawn promoted = new Pawn(boardMock, ChessPiece.Color.BLACK, chessMatchMock);
+        Pawn promoted = new Pawn(boardMock, Color.BLACK, chessMatchMock);
         chessMatchMock.setPromoted(promoted);
 
         assertEquals(promoted, chessMatchMock.replacePromotedPiece("A"));
@@ -170,10 +170,10 @@ class ChessMatchTest {
     @DisplayName("should return the pieces on the board")
     void getPieces() {
         ChessPiece[][] piecesExpected = new ChessPiece[][] {
-                {new Rook(boardMock, ChessPiece.Color.BLACK),
-                        new Queen(boardMock, ChessPiece.Color.BLACK)},
-                {new Rook(boardMock, ChessPiece.Color.WHITE),
-                        new Queen(boardMock, ChessPiece.Color.WHITE)}};
+                {new Rook(boardMock, Color.BLACK),
+                        new Queen(boardMock, Color.BLACK)},
+                {new Rook(boardMock, Color.WHITE),
+                        new Queen(boardMock, Color.WHITE)}};
 
         when(boardMock.getRows()).thenReturn(2);
         when(boardMock.getColumns()).thenReturn(2);

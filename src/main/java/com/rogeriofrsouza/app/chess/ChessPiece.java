@@ -136,9 +136,4 @@ public abstract class ChessPiece extends Piece {
             return letter;
         }
     }
-
-    public enum Color {
-        BLACK,
-        WHITE
-    }
 }

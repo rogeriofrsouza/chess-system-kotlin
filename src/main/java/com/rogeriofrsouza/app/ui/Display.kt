@@ -2,6 +2,7 @@ package com.rogeriofrsouza.app.ui
 
 import com.rogeriofrsouza.app.chess.ChessMatch
 import com.rogeriofrsouza.app.chess.ChessPiece
+import com.rogeriofrsouza.app.chess.Color
 
 class Display {
 
@@ -47,12 +48,12 @@ class Display {
 
     private fun renderMatch(chessMatch: ChessMatch): String =
         buildString {
-            val capturedWhitePieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.WHITE }
-            val capturedBlackPieces = chessMatch.getCapturedPieces().filter { it.color == ChessPiece.Color.BLACK }
+            val capturedWhitePieces = chessMatch.getCapturedPieces().filter { it.color == Color.WHITE }
+            val capturedBlackPieces = chessMatch.getCapturedPieces().filter { it.color == Color.BLACK }
 
             appendLine("Captured pieces")
-                .appendLine("White: ${formatWithAnsiColor(ChessPiece.Color.WHITE, capturedWhitePieces)}")
-                .appendLine("Black: ${formatWithAnsiColor(ChessPiece.Color.BLACK, capturedBlackPieces)}")
+                .appendLine("White: ${formatWithAnsiColor(Color.WHITE, capturedWhitePieces)}")
+                .appendLine("Black: ${formatWithAnsiColor(Color.BLACK, capturedBlackPieces)}")
                 .appendLine()
 
             val currentPlayer = chessMatch.currentPlayer
@@ -70,11 +71,11 @@ class Display {
             }
         }
 
-    private fun <T> formatWithAnsiColor(color: ChessPiece.Color, obj: T): String =
+    private fun <T> formatWithAnsiColor(color: Color, obj: T): String =
         "${getColorCode(color)}$obj${AnsiEscapeCode.RESET}"
 
-    private fun getColorCode(color: ChessPiece.Color): String {
-        return if (color == ChessPiece.Color.WHITE)
+    private fun getColorCode(color: Color): String {
+        return if (color == Color.WHITE)
             AnsiEscapeCode.WHITE
         else
             AnsiEscapeCode.YELLOW
