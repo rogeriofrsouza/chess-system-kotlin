@@ -21,7 +21,7 @@ public class Program {
         Prompt prompt = new Prompt();
         ChessMatch chessMatch = new ChessMatch();
 
-        while (!chessMatch.isCheckMate()) {
+        do {
             try {
                 display.printMatch(chessMatch);
 
@@ -42,7 +42,7 @@ public class Program {
                 System.err.println(exception.getMessage());
                 scanner.nextLine();
             }
-        }
+        } while (!chessMatch.isCheckMate());
 
         display.printMatch(chessMatch);
     }
