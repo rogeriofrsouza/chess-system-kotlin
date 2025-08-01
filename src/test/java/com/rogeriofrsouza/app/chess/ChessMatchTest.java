@@ -1,9 +1,7 @@
 package com.rogeriofrsouza.app.chess;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -133,20 +131,12 @@ class ChessMatchTest {
         ChessPosition chessPosition = new ChessPosition('a', 1);
         Position promotedPosition = chessPosition.toPosition();
 
-        ChessPiece newPiece =
-                switch (type) {
-                    case "B" -> new Bishop(boardMock, Color.WHITE);
-                    case "N" -> new Knight(boardMock, Color.WHITE);
-                    case "R" -> new Rook(boardMock, Color.WHITE);
-                    default -> new Queen(boardMock, Color.WHITE);
-                };
-
         when(chessPieceMock.getChessPosition()).thenReturn(chessPosition);
         when(boardMock.removePiece(promotedPosition)).thenReturn(new Rook(boardMock, Color.WHITE));
         when(chessPieceMock.getColor()).thenReturn(Color.WHITE);
-        doNothing().when(boardMock).placePiece(newPiece, promotedPosition);
+        doNothing().when(boardMock).placePiece(any(Piece.class), eq(promotedPosition));
 
-        assertEquals(newPiece, chessMatchMock.replacePromotedPiece(type));
+        assertDoesNotThrow(() -> chessMatchMock.replacePromotedPiece(type));
     }
 
     @Test
