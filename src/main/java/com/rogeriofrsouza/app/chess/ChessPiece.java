@@ -32,7 +32,7 @@ public abstract class ChessPiece extends Piece {
     }
 
     public ChessPosition getChessPosition() {
-        return ChessPosition.fromPosition(position);
+        return ChessPosition.fromPosition(getPosition());
     }
 
     protected boolean isThereOpponentPiece(Position position) {
@@ -67,7 +67,7 @@ public abstract class ChessPiece extends Piece {
     }
 
     protected void checkMoves(boolean[][] possibleMoves, ChessMoveDirection direction) {
-        Position targetPosition = new Position(position.getRow(), position.getColumn());
+        Position targetPosition = new Position(getPosition().getRow(), getPosition().getColumn());
 
         while (true) {
             changeTargetPosition(targetPosition, direction);
