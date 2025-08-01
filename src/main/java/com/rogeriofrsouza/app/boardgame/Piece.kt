@@ -1,53 +1,15 @@
-package com.rogeriofrsouza.app.boardgame;
+package com.rogeriofrsouza.app.boardgame
 
-import java.util.Objects;
+abstract class Piece(val board: Board) {
 
-public abstract class Piece {
+    var position: Position? = null
 
-    protected Position position;
-    private final Board board;
+    abstract fun computePossibleMoves(): Array<BooleanArray>
 
-    protected Piece(Board board) {
-        this.board = board;
+    fun isTargetPossibleMove(target: Position): Boolean {
+        return computePossibleMoves()[target.row][target.column]
     }
 
-    public abstract boolean[][] computePossibleMoves();
-
-    public boolean isTargetPossibleMove(Position target) {
-        return computePossibleMoves()[target.getRow()][target.getColumn()];
-    }
-
-    public boolean isThereAnyPossibleMove() {
-        boolean[][] possibleMoves = computePossibleMoves();
-
-        for (boolean[] row : possibleMoves) {
-            for (boolean move : row) {
-                if (move) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public Position getPosition() {
-        return this.position;
-    }
-
-    public Board getBoard() {
-        return this.board;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Piece piece = (Piece) o;
-        return Objects.equals(position, piece.position);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(position);
-    }
+    fun isThereAnyPossibleMove(): Boolean =
+        computePossibleMoves().any { row -> row.any { it } }
 }
