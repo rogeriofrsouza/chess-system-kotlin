@@ -52,7 +52,7 @@ public class Board {
         }
 
         pieces[position.getRow()][position.getColumn()] = piece;
-        piece.position = position;
+        piece.setPosition(position);
     }
 
     public Piece removePiece(Position position) {
@@ -65,7 +65,7 @@ public class Board {
         }
 
         Piece aux = piece(position);
-        aux.position = null; // Peça retirada do tabuleiro, não possui posição
+        aux.setPosition(null); // Peça retirada do tabuleiro, não possui posição
 
         pieces[position.getRow()][position.getColumn()] = null;
 
