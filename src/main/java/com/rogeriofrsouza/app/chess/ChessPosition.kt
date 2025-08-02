@@ -1,42 +1,16 @@
-package com.rogeriofrsouza.app.chess;
+package com.rogeriofrsouza.app.chess
 
-import com.rogeriofrsouza.app.boardgame.Position;
+import com.rogeriofrsouza.app.boardgame.Position
 
-public class ChessPosition {
+class ChessPosition(val column: Char, val row: Int) {
 
-    private char column;
-    private int row;
-
-    public ChessPosition(char column, int row) {
-        if (column < 'a' || column > 'h' || row < 1 || row > 8) {
-            throw new ChessException(
-                    "Error instantiating ChessPosition. Valid values are a1 to h8.");
+    init {
+        require(column in 'a'..'h' && row in 1..8) {
+            "Invalid chess position. Should be a1 - h8"
         }
-
-        this.column = column;
-        this.row = row;
     }
 
-    public char getColumn() {
-        return column;
-    }
+    fun toPosition() = Position(8 - row, column.code - 'a'.code)
 
-    public int getRow() {
-        return row;
-    }
-
-    // Não permitir que a coluna e a linha sejam livremente alteradas
-
-    public Position toPosition() {
-        return new Position(8 - row, column - 'a');
-    }
-
-    protected static ChessPosition fromPosition(Position position) {
-        return new ChessPosition((char) (position.getColumn() + 'a'), 8 - position.getRow());
-    }
-
-    @Override
-    public String toString() {
-        return "" + column + row; // Macete para forçar a concatenação
-    }
+    override fun toString() = "$column$row"
 }
