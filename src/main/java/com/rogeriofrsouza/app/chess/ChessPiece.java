@@ -32,7 +32,7 @@ public abstract class ChessPiece extends Piece {
     }
 
     public ChessPosition getChessPosition() {
-        return ChessPosition.fromPosition(getPosition());
+        return getPosition().toChessPosition();
     }
 
     protected boolean isThereOpponentPiece(Position position) {
