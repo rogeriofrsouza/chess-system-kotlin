@@ -1,6 +1,6 @@
-package com.rogeriofrsouza.app.chess;
+package com.rogeriofrsouza.app.chess
 
-public enum Name {
+enum class Name(val letter: String) {
 
     ROOK("R"),
     KNIGHT("N"),
@@ -8,14 +8,4 @@ public enum Name {
     QUEEN("Q"),
     KING("K"),
     PAWN("P");
-
-    private final String letter;
-
-    Name(String letter) {
-        this.letter = letter;
-    }
-
-    public String getLetter() {
-        return letter;
-    }
 }
