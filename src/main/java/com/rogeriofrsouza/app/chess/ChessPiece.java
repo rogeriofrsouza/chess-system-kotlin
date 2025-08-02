@@ -16,6 +16,7 @@ public abstract class ChessPiece extends Piece {
     private int moveCount;
     private List<ChessMoveDirection> chessMoveDirections;
 
+    @Deprecated(since = "1.0-2025-08-02", forRemoval = true)
     protected ChessPiece(Board board, Color color) {
         super(board);
         this.name = null;
