@@ -3,12 +3,11 @@ package com.rogeriofrsouza.app.chess;
 import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.boardgame.Piece;
 import com.rogeriofrsouza.app.boardgame.Position;
-import lombok.EqualsAndHashCode;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-@EqualsAndHashCode(callSuper = true)
 public abstract class ChessPiece extends Piece {
 
     private final Name name;
@@ -118,5 +117,39 @@ public abstract class ChessPiece extends Piece {
 
     public List<ChessMoveDirection> getChessMoveDirections() {
         return this.chessMoveDirections;
+    }
+
+    public boolean equals(final Object o) {
+        if (o == this) return true;
+        if (!(o instanceof ChessPiece other)) return false;
+        if (!other.canEqual(this)) return false;
+        if (!super.equals(o)) return false;
+        final Object this$name = this.getName();
+        final Object other$name = other.getName();
+        if (!Objects.equals(this$name, other$name)) return false;
+        final Object this$color = this.getColor();
+        final Object other$color = other.getColor();
+        if (!Objects.equals(this$color, other$color)) return false;
+        if (this.getMoveCount() != other.getMoveCount()) return false;
+        final Object this$chessMoveDirections = this.getChessMoveDirections();
+        final Object other$chessMoveDirections = other.getChessMoveDirections();
+        return Objects.equals(this$chessMoveDirections, other$chessMoveDirections);
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof ChessPiece;
+    }
+
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = super.hashCode();
+        final Object $name = this.getName();
+        result = result * PRIME + ($name == null ? 43 : $name.hashCode());
+        final Object $color = this.getColor();
+        result = result * PRIME + ($color == null ? 43 : $color.hashCode());
+        result = result * PRIME + this.getMoveCount();
+        final Object $chessMoveDirections = this.getChessMoveDirections();
+        result = result * PRIME + ($chessMoveDirections == null ? 43 : $chessMoveDirections.hashCode());
+        return result;
     }
 }
