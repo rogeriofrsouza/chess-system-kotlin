@@ -1,9 +1,6 @@
 package com.rogeriofrsouza.app;
 
-import com.rogeriofrsouza.app.chess.ChessException;
-import com.rogeriofrsouza.app.chess.ChessMatch;
-import com.rogeriofrsouza.app.chess.ChessPiece;
-import com.rogeriofrsouza.app.chess.ChessPosition;
+import com.rogeriofrsouza.app.chess.*;
 import com.rogeriofrsouza.app.ui.Display;
 import com.rogeriofrsouza.app.ui.Prompt;
 
@@ -35,7 +32,7 @@ public class Program {
                 chessMatch.performChessMove(source, target);
 
                 if (chessMatch.getPromoted() != null) {
-                    ChessPiece.Name pieceName = prompt.readPromotedPiece();
+                    Name pieceName = prompt.readPromotedPiece();
                     chessMatch.replacePromotedPiece(pieceName);
                 }
             } catch (ChessException | InputMismatchException exception) {

@@ -1,8 +1,8 @@
 package com.rogeriofrsouza.app.ui
 
 import com.rogeriofrsouza.app.chess.ChessMatch
-import com.rogeriofrsouza.app.chess.ChessPiece
 import com.rogeriofrsouza.app.chess.ChessPosition
+import com.rogeriofrsouza.app.chess.Name
 import java.util.*
 
 class Prompt {
@@ -19,7 +19,7 @@ class Prompt {
         return ChessPosition(column, row)
     }
 
-    fun readPromotedPiece(): ChessPiece.Name = readUntilValid {
+    fun readPromotedPiece(): Name = readUntilValid {
         print(
             "Enter piece for promotion (" +
                     "${ChessMatch.possiblePromotedPieces.joinToString("/") { it.letter }}): "

@@ -25,10 +25,10 @@ public class ChessMatch {
     private List<ChessPiece> piecesOnTheBoard = new ArrayList<>();
     public final List<ChessPiece> capturedPieces = new ArrayList<>();
 
-    public static final List<ChessPiece.Name> possiblePromotedPieces =
+    public static final List<Name> possiblePromotedPieces =
             List.of(
-                    ChessPiece.Name.BISHOP, ChessPiece.Name.KNIGHT,
-                    ChessPiece.Name.ROOK, ChessPiece.Name.QUEEN);
+                    Name.BISHOP, Name.KNIGHT,
+                    Name.ROOK, Name.QUEEN);
 
     public ChessMatch() {
         board = new Board(8, 8);
@@ -316,7 +316,7 @@ public class ChessMatch {
         return true;
     }
 
-    public ChessPiece replacePromotedPiece(ChessPiece.Name pieceName) {
+    public ChessPiece replacePromotedPiece(Name pieceName) {
         return replacePromotedPiece(pieceName.getLetter());
     }
 
