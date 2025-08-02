@@ -1,10 +1,3 @@
-package com.rogeriofrsouza.app.boardgame;
+package com.rogeriofrsouza.app.boardgame
 
-public class BoardException extends RuntimeException {
-
-    private static final long serialVersionUID = 1L;
-
-    public BoardException(String msg) {
-        super(msg);
-    }
-}
+open class BoardException(message: String) : RuntimeException(message)
