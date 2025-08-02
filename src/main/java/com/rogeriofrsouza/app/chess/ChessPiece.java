@@ -3,7 +3,6 @@ package com.rogeriofrsouza.app.chess;
 import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.boardgame.Piece;
 import com.rogeriofrsouza.app.boardgame.Position;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
@@ -120,7 +119,6 @@ public abstract class ChessPiece extends Piece {
         return this.chessMoveDirections;
     }
 
-    @AllArgsConstructor
     public enum Name {
 
         ROOK("R"),
@@ -131,6 +129,10 @@ public abstract class ChessPiece extends Piece {
         PAWN("P");
 
         private final String letter;
+
+        Name(String letter) {
+            this.letter = letter;
+        }
 
         public String getLetter() {
             return letter;
