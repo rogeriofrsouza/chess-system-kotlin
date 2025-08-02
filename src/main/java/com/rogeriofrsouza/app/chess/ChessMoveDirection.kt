@@ -1,6 +1,6 @@
-package com.rogeriofrsouza.app.chess;
+package com.rogeriofrsouza.app.chess
 
-public enum ChessMoveDirection {
+enum class ChessMoveDirection {
     UP,
     DOWN,
     LEFT,
