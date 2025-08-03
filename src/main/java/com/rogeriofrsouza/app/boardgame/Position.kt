@@ -19,9 +19,17 @@ data class Position(var row: Int, var column: Int) {
             ChessMoveDirection.LEFT -> column--
             ChessMoveDirection.RIGHT -> column++
             ChessMoveDirection.UP_LEFT -> { row--; column-- }
-            ChessMoveDirection.UP_RIGHT -> { row--;column++ }
-            ChessMoveDirection.DOWN_LEFT -> { row++;column-- }
-            ChessMoveDirection.DOWN_RIGHT -> { row++;column++ }
+            ChessMoveDirection.UP_RIGHT -> { row--; column++ }
+            ChessMoveDirection.DOWN_LEFT -> { row++; column-- }
+            ChessMoveDirection.DOWN_RIGHT -> { row++; column++ }
+            ChessMoveDirection.KNIGHT_UP_LEFT -> { row -= 2; column--}
+            ChessMoveDirection.KNIGHT_UP_RIGHT -> { row -= 2; column++}
+            ChessMoveDirection.KNIGHT_DOWN_LEFT ->  { row += 2; column--}
+            ChessMoveDirection.KNIGHT_DOWN_RIGHT -> { row += 2; column++}
+            ChessMoveDirection.KNIGHT_LEFT_UP -> { row--; column -= 2}
+            ChessMoveDirection.KNIGHT_LEFT_DOWN -> { row++; column -= 2}
+            ChessMoveDirection.KNIGHT_RIGHT_UP -> { row--; column += 2}
+            ChessMoveDirection.KNIGHT_RIGHT_DOWN -> { row++; column += 2}
         }
     }
 }
