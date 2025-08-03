@@ -65,7 +65,7 @@ public abstract class ChessPiece extends Piece {
         return possibleMoves;
     }
 
-    protected void checkMoves(boolean[][] possibleMoves, ChessMoveDirection direction) {
+    private void checkMoves(boolean[][] possibleMoves, ChessMoveDirection direction) {
         Position targetPosition = new Position(getPosition().getRow(), getPosition().getColumn());
 
         while (true) {
