@@ -82,6 +82,10 @@ public abstract class ChessPiece extends Piece {
             }
 
             possibleMoves[targetPosition.getRow()][targetPosition.getColumn()] = true;
+
+            if (direction.name().startsWith("KNIGHT")) {
+                return;
+            }
         }
     }
 
