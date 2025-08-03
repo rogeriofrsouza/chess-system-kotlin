@@ -8,11 +8,11 @@ import com.rogeriofrsouza.app.chess.Color;
 
 public class Pawn extends ChessPiece {
 
-    private ChessMatch chessMatch; // Dependência para a partida
+    private final ChessMatch chessMatch;
 
     public Pawn(Board board, Color color, ChessMatch chessMatch) {
         super(board, color);
-        this.chessMatch = chessMatch; // Associação entre os objetos
+        this.chessMatch = chessMatch;
     }
 
     @Override
