@@ -69,7 +69,7 @@ public abstract class ChessPiece extends Piece {
         Position targetPosition = new Position(getPosition().getRow(), getPosition().getColumn());
 
         while (true) {
-            changeTargetPosition(targetPosition, direction);
+            targetPosition.offset(direction);
 
             if (!getBoard().positionExists(targetPosition)) {
                 return;
@@ -82,24 +82,6 @@ public abstract class ChessPiece extends Piece {
             }
 
             possibleMoves[targetPosition.getRow()][targetPosition.getColumn()] = true;
-        }
-    }
-
-    private void changeTargetPosition(Position targetPosition, ChessMoveDirection direction) {
-        switch (direction) {
-            case UP -> targetPosition.setRow(targetPosition.getRow() - 1);
-            case DOWN -> targetPosition.setRow(targetPosition.getRow() + 1);
-            case LEFT -> targetPosition.setColumn(targetPosition.getColumn() - 1);
-            case RIGHT -> targetPosition.setColumn(targetPosition.getColumn() + 1);
-            case UP_LEFT -> targetPosition.setValues(
-                    targetPosition.getRow() - 1, targetPosition.getColumn() - 1);
-            case UP_RIGHT -> targetPosition.setValues(
-                    targetPosition.getRow() - 1, targetPosition.getColumn() + 1);
-            case DOWN_LEFT -> targetPosition.setValues(
-                    targetPosition.getRow() + 1, targetPosition.getColumn() - 1);
-            case DOWN_RIGHT -> targetPosition.setValues(
-                    targetPosition.getRow() + 1, targetPosition.getColumn() + 1);
-            default -> throw new IllegalArgumentException("Invalid direction");
         }
     }
 
