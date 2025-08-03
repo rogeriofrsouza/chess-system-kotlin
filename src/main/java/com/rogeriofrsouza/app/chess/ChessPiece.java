@@ -83,7 +83,7 @@ public abstract class ChessPiece extends Piece {
 
             possibleMoves[targetPosition.getRow()][targetPosition.getColumn()] = true;
 
-            if (direction.name().startsWith("KNIGHT")) {
+            if (direction.isKnightMove()) {
                 return;
             }
         }

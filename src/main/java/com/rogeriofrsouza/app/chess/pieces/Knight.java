@@ -12,7 +12,7 @@ public class Knight extends ChessPiece {
 
     private static final List<ChessMoveDirection> CHESS_MOVE_DIRECTIONS = ChessMoveDirection.getEntries()
             .stream()
-            .filter(c -> c.name().startsWith("KNIGHT"))
+            .filter(ChessMoveDirection::isKnightMove)
             .toList();
 
     public Knight(Board board, Color color) {
