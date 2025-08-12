@@ -5,14 +5,12 @@ public class Board {
     private final int rows;
     private final int columns;
 
-    private final Piece[][] pieces;
     private final BoardSquare[][] squares;
 
     public Board() {
         rows = 8;
         columns = 8;
 
-        pieces = new Piece[rows][columns];
         squares = new BoardSquare[rows][columns];
 
         for (int i = 0; i < rows; i++) {
@@ -37,7 +35,7 @@ public class Board {
             throw new BoardException("Position not on the board");
         }
 
-        return pieces[row][column];
+        return squares[row][column].getPiece();
     }
 
     public Piece piece(Position position) {
@@ -45,7 +43,7 @@ public class Board {
             throw new BoardException("Position not on the board");
         }
 
-        return pieces[position.getRow()][position.getColumn()];
+        return squares[position.getRow()][position.getColumn()].getPiece();
     }
 
     public void placePiece(Piece piece, Position position) {
@@ -53,7 +51,7 @@ public class Board {
             throw new BoardException("There is already a piece on position " + position);
         }
 
-        pieces[position.getRow()][position.getColumn()] = piece;
+        squares[position.getRow()][position.getColumn()].setPiece(piece);
         piece.setPosition(position);
     }
 
@@ -69,7 +67,7 @@ public class Board {
         Piece aux = piece(position);
         aux.setPosition(null); // Peça retirada do tabuleiro, não possui posição
 
-        pieces[position.getRow()][position.getColumn()] = null;
+        squares[position.getRow()][position.getColumn()].setPiece(null);
 
         return aux;
     }
