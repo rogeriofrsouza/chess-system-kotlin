@@ -6,6 +6,7 @@ public class Board {
     private int columns;
 
     private Piece[][] pieces;
+    private BoardSquare[][] squares;
 
     public Board(int rows, int columns) {
         // Programação defensiva
@@ -18,6 +19,13 @@ public class Board {
         this.columns = columns;
 
         pieces = new Piece[rows][columns];
+        squares = new BoardSquare[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                squares[i][j] = new BoardSquare();
+            }
+        }
     }
 
     public int getRows() {
