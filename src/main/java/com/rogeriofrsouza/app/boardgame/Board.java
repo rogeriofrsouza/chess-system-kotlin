@@ -2,11 +2,11 @@ package com.rogeriofrsouza.app.boardgame;
 
 public class Board {
 
-    private int rows;
-    private int columns;
+    private final int rows;
+    private final int columns;
 
-    private Piece[][] pieces;
-    private BoardSquare[][] squares;
+    private final Piece[][] pieces;
+    private final BoardSquare[][] squares;
 
     public Board() {
         rows = 8;
