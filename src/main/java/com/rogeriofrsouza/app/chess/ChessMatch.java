@@ -31,7 +31,7 @@ public class ChessMatch {
                     Name.ROOK, Name.QUEEN);
 
     public ChessMatch() {
-        board = new Board(8, 8);
+        board = new Board();
         turn = 1;
         currentPlayer = Color.WHITE;
 
