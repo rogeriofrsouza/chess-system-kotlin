@@ -25,7 +25,7 @@ public class Program {
                 ChessPosition source = prompt.readChessPosition();
                 boolean[][] possibleMoves = chessMatch.computePossibleMoves(source);
 
-                display.printBoard(chessMatch.getPieces(), possibleMoves);
+                display.printBoard(chessMatch.getBoard());
 
                 ChessPosition target = prompt.readChessPosition();
 

@@ -1,5 +1,6 @@
 package com.rogeriofrsouza.app.ui
 
+import com.rogeriofrsouza.app.boardgame.Board
 import com.rogeriofrsouza.app.chess.ChessMatch
 import com.rogeriofrsouza.app.chess.ChessPiece
 import com.rogeriofrsouza.app.chess.Color
@@ -7,31 +8,39 @@ import com.rogeriofrsouza.app.chess.Color
 class Display {
 
     fun printMatch(chessMatch: ChessMatch) {
-        printBoard(chessMatch.getPieces(), arrayOfNulls(8))
+        printBoard(chessMatch.board)
         print(renderMatch(chessMatch))
     }
 
-    fun printBoard(pieces: Array<Array<ChessPiece?>>, possibleMoves: Array<BooleanArray?>) {
+    fun printBoard(board: Board) {
         clearScreen()
-        print(renderBoard(pieces, possibleMoves))
+        print(renderBoard(board))
     }
 
     private fun clearScreen() {
         print(AnsiEscapeCode.MOVE_CURSOR_HOME + AnsiEscapeCode.CLEAR_SCREEN)
     }
 
-    private fun renderBoard(pieces: Array<Array<ChessPiece?>>, possibleMoves: Array<BooleanArray?>): String =
+    private fun renderBoard(board: Board): String =
         buildString {
-            pieces.forEachIndexed { i, row ->
+            board.squares.forEachIndexed { i, row ->
                 append("${8 - i} ")
 
-                row.forEachIndexed { j, piece ->
-                    val isPossible = possibleMoves.getOrNull(i)?.getOrNull(j) == true
-                    if (isPossible) append(AnsiEscapeCode.BLUE_BACKGROUND)
+                row.forEachIndexed { _, square ->
+                    if (square.isPossibleMove) {
+                        append(AnsiEscapeCode.BLUE_BACKGROUND)
+                    }
 
-                    append(piece?.let { formatWithAnsiColor(it.color, it) } ?: "-")
+                    val renderedPiece = (square.piece as? ChessPiece)?.let {
+                        formatWithAnsiColor(it.color, it)
+                    } ?: "-"
 
-                    if (isPossible) append(AnsiEscapeCode.RESET)
+                    append(renderedPiece)
+
+                    if (square.isPossibleMove && renderedPiece == "-") {
+                        append(AnsiEscapeCode.RESET)
+                    }
+
                     append(" ")
                 }
 
