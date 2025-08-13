@@ -28,7 +28,9 @@ public class Board {
         return columns;
     }
 
-    // Não permitir alterar a quantidade de linhas e colunas. Remover setRows() e setColumns()
+    public BoardSquare[][] getSquares() {
+        return squares;
+    }
 
     public Piece piece(int row, int column) {
         if (!positionExists(row, column)) {
