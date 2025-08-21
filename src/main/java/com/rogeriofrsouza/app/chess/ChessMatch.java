@@ -84,18 +84,21 @@ public class ChessMatch {
         return pieces;
     }
 
-    public boolean[][] computePossibleMoves(ChessPosition sourcePosition) {
+    public void computePossibleMoves(ChessPosition sourcePosition) {
         Position position = sourcePosition.toPosition();
         validateSourcePosition(position);
 
-        return board.piece(position).computePossibleMoves();
+        board.piece(position).computePossibleMoves();
+
+        if (!board.piece(position).isThereAnyPossibleMove()) {
+            throw new ChessException("There is no possible moves for the chosen piece");
+        }
     }
 
     public void performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
 
-        validateSourcePosition(source);
         validateTargetPosition(source, target);
 
         ChessPiece capturedPiece = (ChessPiece) makeMove(source, target);
@@ -142,10 +145,6 @@ public class ChessMatch {
 
         if (currentPlayer != ((ChessPiece) board.piece(position)).getColor()) {
             throw new ChessException("The chosen piece is not yours");
-        }
-
-        if (!board.piece(position).isThereAnyPossibleMove()) {
-            throw new ChessException("There is no possible moves for the chosen piece");
         }
     }
 
