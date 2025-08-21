@@ -55,17 +55,14 @@ public abstract class ChessPiece extends Piece {
 
     @Override
     public boolean[][] computePossibleMoves() {
-        boolean[][] possibleMoves = new boolean[getBoard().getRows()][getBoard().getColumns()];
-
         Optional.ofNullable(getChessMoveDirections())
-                .filter(directions -> !directions.isEmpty())
-                .ifPresent(directions -> directions.forEach(
-                        direction -> checkMoves(possibleMoves, direction)));
+                .ifPresent(directions -> directions.forEach(this::checkMoves));
 
-        return possibleMoves;
+        // TODO: compatibility
+        return new boolean[getBoard().getRows()][getBoard().getColumns()];
     }
 
-    private void checkMoves(boolean[][] possibleMoves, ChessMoveDirection direction) {
+    private void checkMoves(ChessMoveDirection direction) {
         Position targetPosition = new Position(getPosition().getRow(), getPosition().getColumn());
 
         while (true) {
@@ -75,13 +72,11 @@ public abstract class ChessPiece extends Piece {
                 return;
             }
 
-            if (getBoard().thereIsAPiece(targetPosition)) {
-                possibleMoves[targetPosition.getRow()][targetPosition.getColumn()] =
-                        isThereOpponentPiece(targetPosition);
+            if (getBoard().thereIsAPiece(targetPosition) && !isThereOpponentPiece(targetPosition)) {
                 return;
             }
 
-            possibleMoves[targetPosition.getRow()][targetPosition.getColumn()] = true;
+            getBoard().makeSquarePossibleMove(targetPosition);
 
             if (direction.isKnightMove()) {
                 return;

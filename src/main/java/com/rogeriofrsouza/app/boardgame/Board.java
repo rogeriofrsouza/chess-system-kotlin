@@ -89,4 +89,16 @@ public class Board {
 
         return piece(position) != null;
     }
+
+    public void makeSquarePossibleMove(Position position) {
+        squares[position.getRow()][position.getColumn()].setPossibleMove(true);
+    }
+
+    public void cleanPossibleMoves() {
+        for (BoardSquare[] row : squares) {
+            for (BoardSquare column : row) {
+                column.setPossibleMove(false);
+            }
+        }
+    }
 }

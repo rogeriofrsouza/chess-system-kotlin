@@ -23,13 +23,14 @@ public class Program {
                 display.printMatch(chessMatch);
 
                 ChessPosition source = prompt.readChessPosition();
-                boolean[][] possibleMoves = chessMatch.computePossibleMoves(source);
+                chessMatch.computePossibleMoves(source);
 
                 display.printBoard(chessMatch.getBoard());
 
                 ChessPosition target = prompt.readChessPosition();
 
                 chessMatch.performChessMove(source, target);
+                chessMatch.getBoard().cleanPossibleMoves();
 
                 if (chessMatch.getPromoted() != null) {
                     Name pieceName = prompt.readPromotedPiece();

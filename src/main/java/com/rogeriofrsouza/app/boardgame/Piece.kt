@@ -7,9 +7,10 @@ abstract class Piece(val board: Board) {
     abstract fun computePossibleMoves(): Array<BooleanArray>
 
     fun isTargetPossibleMove(target: Position): Boolean {
-        return computePossibleMoves()[target.row][target.column]
+        return board.squares[target.row][target.column].isPossibleMove
     }
 
-    fun isThereAnyPossibleMove(): Boolean =
-        computePossibleMoves().any { row -> row.any { it } }
+    fun isThereAnyPossibleMove(): Boolean {
+        return board.squares.any { row -> row.any { it.isPossibleMove } }
+    }
 }
