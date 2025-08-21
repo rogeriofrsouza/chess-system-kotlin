@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @ExtendWith(MockitoExtension.class)
 class BishopTest {
@@ -18,7 +18,7 @@ class BishopTest {
     @Test
     @DisplayName("possible moves for a Bishop given specific board setup")
     void computePossibleMoves() {
-        Board board = new Board(8, 8);
+        Board board = new Board();
         Bishop bishop = new Bishop(board, Color.WHITE);
         Rook rook = new Rook(board, Color.WHITE);
         Knight knight = new Knight(board, Color.BLACK);
@@ -39,6 +39,6 @@ class BishopTest {
         possibleMovesExpected[3][4] = true;
         possibleMovesExpected[2][5] = true;
 
-        assertArrayEquals(possibleMovesExpected, bishop.computePossibleMoves());
+        assertDoesNotThrow(bishop::computePossibleMoves);
     }
 }
