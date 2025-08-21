@@ -6,7 +6,6 @@ import com.rogeriofrsouza.app.boardgame.Position;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public abstract class ChessPiece extends Piece {
 
@@ -55,33 +54,32 @@ public abstract class ChessPiece extends Piece {
 
     @Override
     public boolean[][] computePossibleMoves() {
-        Optional.ofNullable(getChessMoveDirections())
-                .ifPresent(directions -> directions.forEach(this::checkMoves));
+        if (getChessMoveDirections() != null) {
+            getChessMoveDirections().forEach(direction -> {
+                Position targetPosition = new Position(getPosition().getRow(), getPosition().getColumn());
+
+                while (true) {
+                    targetPosition.offset(direction);
+
+                    if (!getBoard().positionExists(targetPosition)) {
+                        return;
+                    }
+
+                    if (getBoard().thereIsAPiece(targetPosition) && !isThereOpponentPiece(targetPosition)) {
+                        return;
+                    }
+
+                    getBoard().makeSquarePossibleMove(targetPosition);
+
+                    if (direction.isKnightMove()) {
+                        return;
+                    }
+                }
+            });
+        }
 
         // TODO: compatibility
         return new boolean[getBoard().getRows()][getBoard().getColumns()];
-    }
-
-    private void checkMoves(ChessMoveDirection direction) {
-        Position targetPosition = new Position(getPosition().getRow(), getPosition().getColumn());
-
-        while (true) {
-            targetPosition.offset(direction);
-
-            if (!getBoard().positionExists(targetPosition)) {
-                return;
-            }
-
-            if (getBoard().thereIsAPiece(targetPosition) && !isThereOpponentPiece(targetPosition)) {
-                return;
-            }
-
-            getBoard().makeSquarePossibleMove(targetPosition);
-
-            if (direction.isKnightMove()) {
-                return;
-            }
-        }
     }
 
     public Name getName() {
