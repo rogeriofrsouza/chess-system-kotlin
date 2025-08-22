@@ -41,7 +41,6 @@ class ChessMatchTest {
 
         assertEquals(1, chessMatch.getTurn());
         assertEquals(Color.WHITE, chessMatch.getCurrentPlayer());
-        assertEquals(32, chessMatch.getPiecesOnTheBoard().size());
     }
 
     @Test

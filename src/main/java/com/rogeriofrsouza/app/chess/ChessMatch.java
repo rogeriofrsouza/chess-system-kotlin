@@ -373,10 +373,6 @@ public class ChessMatch {
         return this.board;
     }
 
-    public List<ChessPiece> getPiecesOnTheBoard() {
-        return this.piecesOnTheBoard;
-    }
-
     public List<ChessPiece> getCapturedPieces() {
         return this.capturedPieces;
     }
