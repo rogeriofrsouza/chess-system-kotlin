@@ -1,5 +1,7 @@
 package com.rogeriofrsouza.app.boardgame;
 
+import java.util.Arrays;
+
 public class Board {
 
     private final int rows;
@@ -12,12 +14,8 @@ public class Board {
         columns = 8;
 
         squares = new BoardSquare[rows][columns];
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                squares[i][j] = new BoardSquare();
-            }
-        }
+        Arrays.stream(squares)
+                .forEach(arr -> Arrays.setAll(arr, i -> new BoardSquare()));
     }
 
     public int getRows() {
@@ -95,10 +93,8 @@ public class Board {
     }
 
     public void cleanPossibleMoves() {
-        for (BoardSquare[] row : squares) {
-            for (BoardSquare column : row) {
-                column.setPossibleMove(false);
-            }
-        }
+        Arrays.stream(squares)
+                .flatMap(Arrays::stream)
+                .forEach(column -> column.setPossibleMove(false));
     }
 }
