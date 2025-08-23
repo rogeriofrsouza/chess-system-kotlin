@@ -1,6 +1,7 @@
 package com.rogeriofrsouza.app.boardgame;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class Board {
 
@@ -14,8 +15,8 @@ public class Board {
         columns = 8;
 
         squares = new BoardSquare[rows][columns];
-        Arrays.stream(squares)
-                .forEach(arr -> Arrays.setAll(arr, i -> new BoardSquare()));
+        IntStream.range(0, rows)
+                .forEach(r -> Arrays.setAll(squares[r], c -> new BoardSquare(new Position(r, c))));
     }
 
     public int getRows() {
