@@ -22,111 +22,104 @@ public class Pawn extends ChessPiece {
 
     @Override
     public boolean[][] computePossibleMoves() {
-        boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
-
-        Position p = new Position(0, 0);
+        Position position = new Position(0, 0);
+        Board board = getBoard();
 
         // White pawn
         if (getColor() == Color.WHITE) {
-            p.setValues(getPosition().getRow() - 1, getPosition().getColumn());
+            position.setValues(getPosition().getRow() - 1, getPosition().getColumn());
 
-            if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
-                mat[p.getRow()][p.getColumn()] = true;
+            if (board.positionExists(position) && !board.thereIsAPiece(position)) {
+                board.makeSquarePossibleMove(position);
+
+                position.setValues(getPosition().getRow() - 2, getPosition().getColumn());
+
+                if (board.positionExists(position) && !board.thereIsAPiece(position) && getMoveCount() == 0) {
+                    board.makeSquarePossibleMove(position);
+                }
             }
 
-            Position p2 = p;
-            p.setValues(getPosition().getRow() - 2, getPosition().getColumn());
+            position.setValues(getPosition().getRow() - 1, getPosition().getColumn() - 1);
 
-            if (getBoard().positionExists(p)
-                    && !getBoard().thereIsAPiece(p)
-                    && getBoard().positionExists(p2)
-                    && !getBoard().thereIsAPiece(p2)
-                    && getMoveCount() == 0) {
-                mat[p.getRow()][p.getColumn()] = true;
+            if (board.positionExists(position) && isThereOpponentPiece(position)) {
+                board.makeSquarePossibleMove(position);
             }
 
-            p.setValues(getPosition().getRow() - 1, getPosition().getColumn() - 1);
+            position.setValues(getPosition().getRow() - 1, getPosition().getColumn() + 1);
 
-            if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
-                mat[p.getRow()][p.getColumn()] = true;
-            }
-
-            p.setValues(getPosition().getRow() - 1, getPosition().getColumn() + 1);
-
-            if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
-                mat[p.getRow()][p.getColumn()] = true;
+            if (board.positionExists(position) && isThereOpponentPiece(position)) {
+                board.makeSquarePossibleMove(position);
             }
 
             // Special move: En Passant
             if (getPosition().getRow() == 3) {
-                Position left = new Position(getPosition().getRow(), getPosition().getColumn() - 1);
+                position.setValues(getPosition().getRow(), getPosition().getColumn() - 1);
 
-                if (getBoard().positionExists(left)
-                        && isThereOpponentPiece(left)
-                        && getBoard().piece(left) == chessMatch.getEnPassantVulnerable()) {
-                    mat[left.getRow() - 1][left.getColumn()] = true;
+                if (board.positionExists(position)
+                        && isThereOpponentPiece(position)
+                        && board.piece(position) == chessMatch.getEnPassantVulnerable()) {
+                    position.setRow(position.getRow() - 1);
+                    board.makeSquarePossibleMove(position);
                 }
 
-                Position right = new Position(getPosition().getRow(), getPosition().getColumn() + 1);
+                position.setValues(getPosition().getRow(), getPosition().getColumn() + 1);
 
-                if (getBoard().positionExists(right)
-                        && isThereOpponentPiece(right)
-                        && getBoard().piece(right) == chessMatch.getEnPassantVulnerable()) {
-                    mat[right.getRow() - 1][right.getColumn()] = true;
+                if (board.positionExists(position)
+                        && isThereOpponentPiece(position)
+                        && board.piece(position) == chessMatch.getEnPassantVulnerable()) {
+                    position.setRow(position.getRow() - 1);
+                    board.makeSquarePossibleMove(position);
                 }
             }
         }
         // Black pawn
         else {
-            p.setValues(getPosition().getRow() + 1, getPosition().getColumn());
+            position.setValues(getPosition().getRow() + 1, getPosition().getColumn());
 
-            if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
-                mat[p.getRow()][p.getColumn()] = true;
+            if (board.positionExists(position) && !board.thereIsAPiece(position)) {
+                board.makeSquarePossibleMove(position);
+
+                position.setValues(getPosition().getRow() + 2, getPosition().getColumn());
+
+                if (board.positionExists(position) && !board.thereIsAPiece(position) && getMoveCount() == 0) {
+                    board.makeSquarePossibleMove(position);
+                }
             }
 
-            Position p2 = p;
-            p.setValues(getPosition().getRow() + 2, getPosition().getColumn());
+            position.setValues(getPosition().getRow() + 1, getPosition().getColumn() - 1);
 
-            if (getBoard().positionExists(p)
-                    && !getBoard().thereIsAPiece(p)
-                    && getBoard().positionExists(p2)
-                    && !getBoard().thereIsAPiece(p2)
-                    && getMoveCount() == 0) {
-                mat[p.getRow()][p.getColumn()] = true;
+            if (board.positionExists(position) && isThereOpponentPiece(position)) {
+                board.makeSquarePossibleMove(position);
             }
 
-            p.setValues(getPosition().getRow() + 1, getPosition().getColumn() - 1);
+            position.setValues(getPosition().getRow() + 1, getPosition().getColumn() + 1);
 
-            if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
-                mat[p.getRow()][p.getColumn()] = true;
-            }
-
-            p.setValues(getPosition().getRow() + 1, getPosition().getColumn() + 1);
-
-            if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
-                mat[p.getRow()][p.getColumn()] = true;
+            if (board.positionExists(position) && isThereOpponentPiece(position)) {
+                board.makeSquarePossibleMove(position);
             }
 
             // Special move: En Passant
             if (getPosition().getRow() == 4) {
-                Position left = new Position(getPosition().getRow(), getPosition().getColumn() - 1);
+                position.setValues(getPosition().getRow(), getPosition().getColumn() - 1);
 
-                if (getBoard().positionExists(left)
-                        && isThereOpponentPiece(left)
-                        && getBoard().piece(left) == chessMatch.getEnPassantVulnerable()) {
-                    mat[left.getRow() + 1][left.getColumn()] = true;
+                if (board.positionExists(position)
+                        && isThereOpponentPiece(position)
+                        && board.piece(position) == chessMatch.getEnPassantVulnerable()) {
+                    position.setRow(position.getRow() + 1);
+                    board.makeSquarePossibleMove(position);
                 }
 
-                Position right = new Position(getPosition().getRow(), getPosition().getColumn() + 1);
+                position.setValues(getPosition().getRow(), getPosition().getColumn() + 1);
 
-                if (getBoard().positionExists(right)
-                        && isThereOpponentPiece(right)
-                        && getBoard().piece(right) == chessMatch.getEnPassantVulnerable()) {
-                    mat[right.getRow() + 1][right.getColumn()] = true;
+                if (board.positionExists(position)
+                        && isThereOpponentPiece(position)
+                        && board.piece(position) == chessMatch.getEnPassantVulnerable()) {
+                    position.setRow(position.getRow() + 1);
+                    board.makeSquarePossibleMove(position);
                 }
             }
         }
 
-        return mat;
+        return new boolean[0][0];
     }
 }
