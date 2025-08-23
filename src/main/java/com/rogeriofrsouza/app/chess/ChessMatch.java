@@ -23,7 +23,6 @@ public class ChessMatch {
 
     private Board board;
 
-    private List<ChessPiece> piecesOnTheBoard = new ArrayList<>();
     public final List<ChessPiece> capturedPieces = new ArrayList<>();
 
     public static final List<Name> possiblePromotedPieces =
@@ -54,7 +53,6 @@ public class ChessMatch {
                                 : switchPiece(column, board, color);
 
                 board.placePiece(piece, new ChessPosition(column, row).toPosition());
-                piecesOnTheBoard.add(piece);
             }
         }
     }
@@ -163,7 +161,6 @@ public class ChessMatch {
         board.placePiece(movingPiece, target);
 
         if (capturedPiece != null) {
-            piecesOnTheBoard.remove(capturedPiece);
             capturedPieces.add(capturedPiece);
         }
 
@@ -200,7 +197,6 @@ public class ChessMatch {
 
             capturedPiece = (ChessPiece) board.removePiece(pawnPosition);
             capturedPieces.add(capturedPiece);
-            piecesOnTheBoard.remove(capturedPiece);
         }
 
         return capturedPiece;
@@ -214,7 +210,6 @@ public class ChessMatch {
 
         if (capturedPiece != null) {
             board.placePiece(capturedPiece, target);
-            piecesOnTheBoard.add(capturedPiece);
             capturedPieces.remove(capturedPiece);
         }
 
@@ -341,8 +336,7 @@ public class ChessMatch {
         }
 
         Position promotedPosition = promoted.getChessPosition().toPosition();
-        ChessPiece promotedPiece = (ChessPiece) board.removePiece(promotedPosition);
-        piecesOnTheBoard.remove(promotedPiece);
+        board.removePiece(promotedPosition);
 
         ChessPiece newPiece = switch (type) {
             case "B" -> new Bishop(board, promoted.getColor());
@@ -352,7 +346,6 @@ public class ChessMatch {
         };
 
         board.placePiece(newPiece, promotedPosition);
-        piecesOnTheBoard.add(newPiece);
 
         return newPiece;
     }
