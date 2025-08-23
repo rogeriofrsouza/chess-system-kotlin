@@ -290,24 +290,26 @@ public class ChessMatch {
         List<ChessPiece> piecesFiltered = getPiecesByColor(color);
 
         for (ChessPiece piece : piecesFiltered) {
-            boolean[][] possibleMoves = piece.computePossibleMoves();
+            piece.computePossibleMoves();
 
-            for (int i = 0; i < board.getRows(); i++) {
-                for (int j = 0; j < board.getColumns(); j++) {
-                    if (possibleMoves[i][j]) {
+            for (BoardSquare[] row : getBoard().getSquares()) {
+                for (BoardSquare column : row) {
+                    if (column.isPossibleMove()) {
                         Position source = piece.getChessPosition().toPosition();
-                        Position target = new Position(i, j);
+                        Position target = column.getPosition();
 
                         ChessPiece capturedPiece = makeMove(source, target);
-                        boolean testCheck = testCheck(color);
+                        boolean isInCheck = testCheck(color);
                         undoMove(source, target, capturedPiece);
 
-                        if (!testCheck) {
+                        if (!isInCheck) {
                             return false;
                         }
                     }
                 }
             }
+
+            getBoard().cleanPossibleMoves();
         }
 
         return true;
