@@ -2,7 +2,6 @@ package com.rogeriofrsouza.app.chess;
 
 import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.boardgame.BoardSquare;
-import com.rogeriofrsouza.app.boardgame.Piece;
 import com.rogeriofrsouza.app.boardgame.Position;
 import com.rogeriofrsouza.app.chess.pieces.*;
 import lombok.Setter;
@@ -103,7 +102,7 @@ public class ChessMatch {
 
         validateTargetPosition(source, target);
 
-        ChessPiece capturedPiece = (ChessPiece) makeMove(source, target);
+        ChessPiece capturedPiece = makeMove(source, target);
 
         if (testCheck(currentPlayer)) {
             undoMove(source, target, capturedPiece);
@@ -156,7 +155,7 @@ public class ChessMatch {
         }
     }
 
-    private Piece makeMove(Position source, Position target) {
+    private ChessPiece makeMove(Position source, Position target) {
         ChessPiece movingPiece = (ChessPiece) board.removePiece(source);
         movingPiece.increaseMoveCount();
 
@@ -299,7 +298,7 @@ public class ChessMatch {
                         Position source = piece.getChessPosition().toPosition();
                         Position target = new Position(i, j);
 
-                        ChessPiece capturedPiece = (ChessPiece) makeMove(source, target);
+                        ChessPiece capturedPiece = makeMove(source, target);
                         boolean testCheck = testCheck(color);
                         undoMove(source, target, capturedPiece);
 
