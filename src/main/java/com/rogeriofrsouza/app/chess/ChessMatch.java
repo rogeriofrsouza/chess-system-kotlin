@@ -260,11 +260,13 @@ public class ChessMatch {
         Position kingPosition = searchKing(color).getChessPosition().toPosition();
         Color opponentPlayer = getOpponentPlayer(color);
 
-        return piecesOnTheBoard.stream()
-                .filter(piece -> piece.getColor() == opponentPlayer)
+        return getPiecesByColor(opponentPlayer)
+                .stream()
                 .anyMatch(piece -> {
-                    boolean[][] possibleMoves = piece.computePossibleMoves();
-                    return possibleMoves[kingPosition.getRow()][kingPosition.getColumn()];
+                    piece.computePossibleMoves();
+                    boolean isInCheck = piece.isTargetPossibleMove(kingPosition);
+                    getBoard().cleanPossibleMoves();
+                    return isInCheck;
                 });
     }
 
