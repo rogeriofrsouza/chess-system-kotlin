@@ -271,11 +271,11 @@ public class ChessMatch {
     }
 
     private ChessPiece searchKing(Color color) {
-        return piecesOnTheBoard.stream()
-                .filter(piece -> piece instanceof King && piece.getColor() == color)
+        return getPiecesByColor(color)
+                .stream()
+                .filter(King.class::isInstance)
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException(
-                        "There is no " + color + " king on the board"));
+                .orElseThrow(() -> new IllegalStateException("There is no " + color + " king on the board"));
     }
 
     private Color getOpponentPlayer(Color color) {
