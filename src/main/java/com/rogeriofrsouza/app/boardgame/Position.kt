@@ -31,6 +31,8 @@ data class Position(var row: Int, var column: Int) {
             ChessMoveDirection.KNIGHT_LEFT_DOWN -> { row++; column -= 2}
             ChessMoveDirection.KNIGHT_RIGHT_UP -> { row--; column += 2}
             ChessMoveDirection.KNIGHT_RIGHT_DOWN -> { row++; column += 2}
+            ChessMoveDirection.EN_PASSANT_LEFT -> 0 to -1
+            ChessMoveDirection.EN_PASSANT_RIGHT -> 0 to 1
         }
     }
 
@@ -52,6 +54,8 @@ data class Position(var row: Int, var column: Int) {
             ChessMoveDirection.KNIGHT_LEFT_DOWN -> 1 to -2
             ChessMoveDirection.KNIGHT_RIGHT_UP -> -1 to 2
             ChessMoveDirection.KNIGHT_RIGHT_DOWN -> 1 to 2
+            ChessMoveDirection.EN_PASSANT_LEFT -> 0 to -1
+            ChessMoveDirection.EN_PASSANT_RIGHT -> 0 to 1
         }
 
         return Position(row + deltaRow, column + deltaCol)
