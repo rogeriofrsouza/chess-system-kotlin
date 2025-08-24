@@ -2,10 +2,7 @@ package com.rogeriofrsouza.app.chess.pieces;
 
 import com.rogeriofrsouza.app.boardgame.Board;
 import com.rogeriofrsouza.app.boardgame.Position;
-import com.rogeriofrsouza.app.chess.ChessMatch;
-import com.rogeriofrsouza.app.chess.ChessMoveDirection;
-import com.rogeriofrsouza.app.chess.ChessPiece;
-import com.rogeriofrsouza.app.chess.Color;
+import com.rogeriofrsouza.app.chess.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,7 @@ public class Pawn extends ChessPiece {
 
     @Override
     public String toString() {
-        return "P";
+        return Name.PAWN.getLetter();
     }
 
     @Override
