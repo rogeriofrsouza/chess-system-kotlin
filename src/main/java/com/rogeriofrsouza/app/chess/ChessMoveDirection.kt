@@ -16,7 +16,11 @@ enum class ChessMoveDirection {
     KNIGHT_LEFT_UP,
     KNIGHT_LEFT_DOWN,
     KNIGHT_RIGHT_UP,
-    KNIGHT_RIGHT_DOWN;
+    KNIGHT_RIGHT_DOWN,
+    EN_PASSANT_LEFT,
+    EN_PASSANT_RIGHT;
 
     fun isKnightMove(): Boolean = this in KNIGHT_UP_LEFT..KNIGHT_RIGHT_DOWN
+
+    fun isEnPassantMove(): Boolean = this in EN_PASSANT_LEFT..EN_PASSANT_RIGHT
 }
