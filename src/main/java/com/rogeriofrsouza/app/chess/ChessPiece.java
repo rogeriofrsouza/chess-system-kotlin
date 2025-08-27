@@ -65,7 +65,11 @@ public abstract class ChessPiece extends Piece {
                         return;
                     }
 
-                    if (getBoard().thereIsAPiece(targetPosition) && !isThereOpponentPiece(targetPosition)) {
+                    if (getBoard().thereIsAPiece(targetPosition)) {
+                        if (isThereOpponentPiece(targetPosition)) {
+                            getBoard().makeSquarePossibleMove(targetPosition);
+                        }
+
                         return;
                     }
 
