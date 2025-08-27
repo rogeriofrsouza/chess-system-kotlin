@@ -280,10 +280,6 @@ public class ChessMatch {
     }
 
     private boolean testCheckMate(Color color) {
-        if (!testCheck(color)) {
-            return false;
-        }
-
         List<ChessPiece> piecesFiltered = getPiecesByColor(color);
 
         for (ChessPiece piece : piecesFiltered) {
